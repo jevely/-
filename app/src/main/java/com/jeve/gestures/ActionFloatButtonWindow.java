@@ -1,7 +1,6 @@
 package com.jeve.gestures;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
@@ -103,7 +102,7 @@ public class ActionFloatButtonWindow {
         float_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActionTool.getInstance().setShouldAction()) {
+                if (ActionCheckTool.getInstance().setShouldAction()) {
                     float_tv.setText("已经开始");
                 } else {
                     float_tv.setText("点击开始");

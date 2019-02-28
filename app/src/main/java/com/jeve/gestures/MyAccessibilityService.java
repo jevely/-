@@ -4,16 +4,22 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.webkit.WebHistoryItem;
+
+import com.jeve.gestures.action.ActionManager;
+
+import java.util.Random;
 
 /**
  * 辅助功能检测最上层应用服务
  */
 public class MyAccessibilityService extends AccessibilityService {
+
+    public static final String ACTION_BACK = "action_back";
+    public static final String ACTION_POWER = "action_power";
+    public static final String ACTION_RECENT = "action_recent";
+    public static final String ACTION_THEME_UPDATE = "action_theme_update";
 
     @Override
     public void onCreate() {
@@ -21,6 +27,8 @@ public class MyAccessibilityService extends AccessibilityService {
     }
 
     private AccessibilityNodeInfo nodeInfo;
+    private String className;
+    private String pakcageName;
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -30,74 +38,22 @@ public class MyAccessibilityService extends AccessibilityService {
             }
 
             nodeInfo = event.getSource();
+            className = event.getClassName().toString();
+            pakcageName = event.getPackageName().toString();
 
-            String packageName = event.getPackageName().toString();
-
-            Logger.d(packageName + "----" + event.getClassName());
-
-
-//            if (nodeInfo != null) {
-//                iterateNodesAndHandle(nodeInfo);
-//            }
-//            useGestureClick(nodeInfo);
-//            if (TextUtils.equals(event.getClassName(), "com.jifen.qkbase.main.MainActivity")) {
-//                clickTest(nodeInfo);
-//                new Thread(new Thr(nodeInfo)).start();
-//                clickTest(nodeInfo);
-//                useGestureClick(nodeInfo);
-//                useGestureClick(nodeInfo);
-//                useGestureClick(nodeInfo);
-//            }
+            Logger.d(pakcageName + "--" + className);
 
             if (!startThr2) {
                 startThr2 = true;
-//                new Thread(new Thr2()).start();
-                new Thread(new ActionThr()).start();
+                new Thread(new ActionThrTest()).start();
             }
         }
     }
 
     private boolean startThr2 = false;
 
-    private int time = 0;
+//    private int time = 0;
 
-//    private class Thr2 implements Runnable {
-//
-//        @Override
-//        public void run() {
-//            try {
-//                while (true) {
-//                    Thread.sleep(2000);
-//                    Logger.d("工作状态:" + ActionTool.getInstance().getShouldAction());
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-
-//    private class Thr implements Runnable {
-//        private AccessibilityNodeInfo nodeInfo;
-//
-//        Thr(AccessibilityNodeInfo nodeInfo) {
-//            this.nodeInfo = nodeInfo;
-//        }
-//
-//        @Override
-//        public void run() {
-//            try {
-//                while (true) {
-//                    Thread.sleep(10000);
-//                    iterateNodesAndHandle(nodeInfo);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//    }
-//
 //    private boolean iterateNodesAndHandle(AccessibilityNodeInfo nodeInfo) {
 //
 //        int childCount = nodeInfo.getChildCount();
@@ -143,27 +99,65 @@ public class MyAccessibilityService extends AccessibilityService {
 //        return false;
 //    }
 
-    private class ActionThr implements Runnable {
+//    private class ActionThr implements Runnable {
+//
+//        @Override
+//        public void run() {
+//            try {
+//                while (true) {
+//                    if (ActionCheckTool.getInstance().getShouldAction()) {
+//                        if (time <= 120) {
+//                            scrollUp(nodeInfo);
+//                            Thread.sleep(2000);
+//                            scrollDown(nodeInfo);
+//                            Thread.sleep(2000);
+//                            time += 4;
+//                        } else {
+//                            //退出再进来
+//                            clickBack(nodeInfo);
+//                            Thread.sleep(1500);
+//                            clickIn(nodeInfo);
+//                            Thread.sleep(3000);
+//                            time = 0;
+//                        }
+//                    }
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+//    private class ActionThr2 implements Runnable {
+//
+//        @Override
+//        public void run() {
+//            try {
+//                while (true) {
+//                    if (ActionCheckTool.getInstance().getShouldAction()) {
+//                        scrollUp2(nodeInfo);
+//                        Thread.sleep(3000);
+//                        clickIn(nodeInfo);
+////                        Thread.sleep(3000);
+////                        clickIn(nodeInfo);
+//                        Thread.sleep(10000);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+    private class ActionThrTest implements Runnable {
 
         @Override
         public void run() {
             try {
                 while (true) {
-                    if (ActionTool.getInstance().getShouldAction()) {
-                        if (time <= 120) {
-                            scrollUp(nodeInfo);
-                            Thread.sleep(2000);
-                            scrollDown(nodeInfo);
-                            Thread.sleep(2000);
-                            time += 4;
-                        } else {
-                            //退出再进来
-                            clickBack(nodeInfo);
-                            Thread.sleep(1500);
-                            clickIn(nodeInfo);
-                            Thread.sleep(3000);
-                            time = 0;
-                        }
+                    Thread.sleep(1000);
+                    if (ActionCheckTool.getInstance().getShouldAction()) {
+                        ActionManager.getInstance().doAction(pakcageName, className, nodeInfo, MyAccessibilityService.this);
                     }
                 }
             } catch (Exception e) {
@@ -172,75 +166,96 @@ public class MyAccessibilityService extends AccessibilityService {
         }
     }
 
-    public void scrollUp(AccessibilityNodeInfo nodeInfo) {
-        Rect rect = new Rect();
-        nodeInfo.getBoundsInScreen(rect);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        Path path = new Path();
-        path.moveTo(rect.centerX(), rect.centerY());
-        path.lineTo(rect.centerX(), rect.centerY() - 300);
-        GestureDescription gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 100, 500))
-                .build();
-        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
-            }
-        }, null);
-    }
+//    public void scrollUp(AccessibilityNodeInfo nodeInfo) {
+//        Rect rect = new Rect();
+//        nodeInfo.getBoundsInScreen(rect);
+//        GestureDescription.Builder builder = new GestureDescription.Builder();
+//        Path path = new Path();
+//        path.moveTo(rect.centerX(), rect.centerY());
+//        path.lineTo(rect.centerX(), rect.centerY() - 300);
+//        GestureDescription gestureDescription = builder
+//                .addStroke(new GestureDescription.StrokeDescription(path, 0, 500))
+//                .build();
+//        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+//            @Override
+//            public void onCompleted(GestureDescription gestureDescription) {
+//                super.onCompleted(gestureDescription);
+//            }
+//        }, null);
+//    }
 
-    public void scrollDown(AccessibilityNodeInfo nodeInfo) {
-        Rect rect = new Rect();
-        nodeInfo.getBoundsInScreen(rect);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        Path path = new Path();
-        path.moveTo(rect.centerX(), rect.centerY());
-        path.lineTo(rect.centerX(), rect.centerY() + 300);
-        GestureDescription gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 100, 500))
-                .build();
-        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
-            }
-        }, null);
-    }
+//    public void scrollUp2(AccessibilityNodeInfo nodeInfo) {
+//        Rect rect = new Rect();
+//        nodeInfo.getBoundsInScreen(rect);
+//        GestureDescription.Builder builder = new GestureDescription.Builder();
+//        Path path = new Path();
+//        Random random = new Random();
+//
+//        path.moveTo(rect.centerX(), 1650);
+//        path.lineTo(rect.centerX(), 350);
+//
+//        GestureDescription gestureDescription = builder
+//                .addStroke(new GestureDescription.StrokeDescription(path, 10, 500))
+//                .build();
+//        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+//            @Override
+//            public void onCompleted(GestureDescription gestureDescription) {
+//                super.onCompleted(gestureDescription);
+//            }
+//        }, null);
+//    }
 
-    public void clickBack(AccessibilityNodeInfo nodeInfo) {
-        Rect rect = new Rect();
-        nodeInfo.getBoundsInScreen(rect);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        Path path = new Path();
-        path.moveTo(20, 100);
-        GestureDescription gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 100, 50))
-                .build();
-        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
-            }
-        }, null);
-    }
+//    public void scrollDown(AccessibilityNodeInfo nodeInfo) {
+//        Rect rect = new Rect();
+//        nodeInfo.getBoundsInScreen(rect);
+//        GestureDescription.Builder builder = new GestureDescription.Builder();
+//        Path path = new Path();
+//        path.moveTo(rect.centerX(), rect.centerY());
+//        path.lineTo(rect.centerX(), rect.centerY() + 300);
+//        GestureDescription gestureDescription = builder
+//                .addStroke(new GestureDescription.StrokeDescription(path, 100, 500))
+//                .build();
+//        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+//            @Override
+//            public void onCompleted(GestureDescription gestureDescription) {
+//                super.onCompleted(gestureDescription);
+//            }
+//        }, null);
+//    }
 
-    public void clickIn(AccessibilityNodeInfo nodeInfo) {
-        Rect rect = new Rect();
-        nodeInfo.getBoundsInScreen(rect);
-        GestureDescription.Builder builder = new GestureDescription.Builder();
-        Path path = new Path();
-        path.moveTo(rect.centerX(), rect.centerY());
-        GestureDescription gestureDescription = builder
-                .addStroke(new GestureDescription.StrokeDescription(path, 100, 50))
-                .build();
-        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
-            @Override
-            public void onCompleted(GestureDescription gestureDescription) {
-                super.onCompleted(gestureDescription);
-            }
-        }, null);
-    }
+//    public void clickBack(AccessibilityNodeInfo nodeInfo) {
+//        Rect rect = new Rect();
+//        nodeInfo.getBoundsInScreen(rect);
+//        GestureDescription.Builder builder = new GestureDescription.Builder();
+//        Path path = new Path();
+//        path.moveTo(20, 100);
+//        GestureDescription gestureDescription = builder
+//                .addStroke(new GestureDescription.StrokeDescription(path, 100, 50))
+//                .build();
+//        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+//            @Override
+//            public void onCompleted(GestureDescription gestureDescription) {
+//                super.onCompleted(gestureDescription);
+//            }
+//        }, null);
+//    }
+
+//    public void clickIn(AccessibilityNodeInfo nodeInfo) {
+//        Rect rect = new Rect();
+//        nodeInfo.getBoundsInScreen(rect);
+//        GestureDescription.Builder builder = new GestureDescription.Builder();
+//        Path path = new Path();
+//        path.moveTo(rect.centerX(), rect.centerY());
+//        GestureDescription gestureDescription = builder
+//                .addStroke(new GestureDescription.StrokeDescription(path, 100, 50))
+//                .build();
+//        dispatchGesture(gestureDescription, new AccessibilityService.GestureResultCallback() {
+//            @Override
+//            public void onCompleted(GestureDescription gestureDescription) {
+//                super.onCompleted(gestureDescription);
+//            }
+//        }, null);
+//    }
 
 
     @Override

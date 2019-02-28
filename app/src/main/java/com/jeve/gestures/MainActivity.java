@@ -1,5 +1,6 @@
 package com.jeve.gestures;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
@@ -9,10 +10,14 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = this;
 
         findViewById(R.id.bt).setOnClickListener(this);
         findViewById(R.id.bt2).setOnClickListener(this);
