@@ -34,11 +34,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        adapter = new MainAdapter(this, ContentManager.getInstance().getAllContent());
+        List<AppContent> allContent = ContentManager.getInstance().getAllContent();
+        adapter = new MainAdapter(this, allContent);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         adapter.setClickCallBack(this);
+
+        for (AppContent appContent : allContent) {
+            if (appContent.isCheck()) {
+                ActionManager.getInstance().addActionContent(appContent);
+            }
+        }
     }
 
     private void initEvent() {

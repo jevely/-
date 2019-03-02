@@ -43,7 +43,7 @@ public class ActionManager {
             Logger.d("什么都不错界面");
         } else {
             //都不是，可能跳转到其他APP，点击返回
-            Logger.d("跳转到其他APP");
+            Logger.d("跳转到其他APP:" + className);
             otherAction(service);
         }
     }
