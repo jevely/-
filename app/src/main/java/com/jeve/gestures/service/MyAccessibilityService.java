@@ -1,15 +1,12 @@
-package com.jeve.gestures;
+package com.jeve.gestures.service;
 
 import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.GestureDescription;
-import android.graphics.Path;
-import android.graphics.Rect;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.jeve.gestures.tool.ActionCheckTool;
+import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.action.ActionManager;
-
-import java.util.Random;
 
 /**
  * 辅助功能检测最上层应用服务
@@ -157,7 +154,10 @@ public class MyAccessibilityService extends AccessibilityService {
                 while (true) {
                     Thread.sleep(1000);
                     if (ActionCheckTool.getInstance().getShouldAction()) {
+//                        Logger.d("正在执行工作：" + pakcageName);
                         ActionManager.getInstance().doAction(pakcageName, className, nodeInfo, MyAccessibilityService.this);
+                    } else {
+//                        Logger.d("没有执行工作：" + pakcageName);
                     }
                 }
             } catch (Exception e) {

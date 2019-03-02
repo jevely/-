@@ -1,4 +1,4 @@
-package com.jeve.gestures;
+package com.jeve.gestures.window;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -8,6 +8,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.jeve.gestures.tool.Logger;
+import com.jeve.gestures.R;
+import com.jeve.gestures.tool.Utils;
+import com.jeve.gestures.tool.ActionCheckTool;
 
 /**
  * app锁屏（window）

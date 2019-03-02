@@ -11,43 +11,47 @@ import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
- * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
- * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
- * com.cashtoutiao.news.ui.NewsDetailActivity 工作推荐 新闻
- * com.bytedance.sdk.openadsdk.activity.TTLandingPageActivity 广告
- * com.cashtoutiao.alivideodetail.AliVideoDetailActivity 视频
+ * com.yj.yueyouqian包名
+ * <p>
+ * com.jifen.qukan.ui.activity.PermissionCheckActivity启动页
+ * <p>
+ * com.abase.view.weight.MyDialog不操作
+ * <p>
+ * com.jifen.qukan.ui.activity.HomeActivity主界面
+ * <p>
+ * com.jifen.qukan.module.channel.news.list.detail.NewsDetailActivity新闻界面
  */
-public class HuiAction extends BaseAction {
+public class ZhuanAction extends BaseAction {
 
-    public HuiAction() {
+    public ZhuanAction() {
         super();
     }
 
-    public HuiAction(AppContent appContent) {
+    public ZhuanAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.jifen.qukan.ui.activity.HomeActivity":
+                Logger.d("赚钱阅有钱主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.jifen.qukan.module.channel.news.list.detail.NewsDetailActivity":
+                Logger.d("赚钱阅有钱新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
-                videoAction(service);
-                break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
+//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
+//                Logger.d("赚钱阅有钱视频界面操作");
+//                videoAction(service);
+//                break;
+            case "com.jifen.qukan.ui.activity.PermissionCheckActivity":
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("赚钱阅有钱其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -67,14 +71,14 @@ public class HuiAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
+        while (time < 35) {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
-            time += 6;
+            time += 4;
 
-            recordTime(6000);
+            recordTime(4000);
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
@@ -106,3 +110,4 @@ public class HuiAction extends BaseAction {
         }
     }
 }
+

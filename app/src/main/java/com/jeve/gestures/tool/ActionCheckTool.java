@@ -1,4 +1,4 @@
-package com.jeve.gestures;
+package com.jeve.gestures.tool;
 
 public class ActionCheckTool {
 

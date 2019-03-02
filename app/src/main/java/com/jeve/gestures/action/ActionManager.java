@@ -1,18 +1,23 @@
 package com.jeve.gestures.action;
 
 import android.accessibilityservice.AccessibilityService;
+import android.text.TextUtils;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.jeve.gestures.Logger;
+import com.jeve.gestures.content.AppContent;
+import com.jeve.gestures.content.ContentManager;
+import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionManager {
 
-    private HuiAction huiAction;
-    private ShuaAction shuaAction;
+    private List<AppContent> actionList;
 
     private ActionManager() {
-        huiAction = new HuiAction();
-        shuaAction = new ShuaAction();
+        actionList = new ArrayList<>();
     }
 
     private static class ActionBulder {
@@ -24,18 +29,63 @@ public class ActionManager {
     }
 
     public void doAction(String pakcageName, String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
-        if (checkHui(pakcageName)) {
-            Logger.d("开始操作惠头条");
-            huiAction.checkAction(className, nodeInfo, service);
+
+        for (AppContent content : actionList) {
+            if (content.getPackageName().contains(pakcageName)) {
+                //开始执行
+                BaseAction baseAction = ContentManager.getInstance().getAction(content);
+                if (baseAction != null) baseAction.checkAction(className, nodeInfo, service);
+                return;
+            }
+        }
+
+        if (chekcSplash(className)) {
+            Logger.d("什么都不错界面");
+        } else {
+            //都不是，可能跳转到其他APP，点击返回
+            Logger.d("跳转到其他APP");
+            otherAction(service);
         }
     }
 
-    private boolean checkHui(String pakcageName) {
-        return pakcageName.contains("com.cashtoutiao") || pakcageName.contains("com.bytedance");
+    private boolean chekcSplash(String packageName) {
+        return packageName.contains("android.widget.FrameLayout");
     }
 
-    private boolean checkShua(String pakcageName) {
-        return pakcageName.contains("com.cashtoutiao") || pakcageName.contains("com.bytedance");
+    //其他界面 点击返回，退出至主界面
+    private void otherAction(AccessibilityService service) throws Exception {
+        Thread.sleep(1000);
+        ActionTool.clickBack(service);
+    }
+
+    public void addActionContent(AppContent appContent) {
+        if (!actionList.contains(appContent)) {
+            actionList.add(appContent);
+        }
+    }
+
+    public void removeActionContent(AppContent appContent) {
+        actionList.remove(appContent);
+    }
+
+    public List<AppContent> getAppList() {
+        return actionList;
+    }
+
+    public boolean hasNext(String packageName) {
+        int a = 0;
+        boolean hasContent = false;
+        for (AppContent appContent : actionList) {
+            if (TextUtils.equals(packageName, appContent.getPackageName())) {
+                hasContent = true;
+            }
+
+            if (hasContent) {
+                a++;
+            }
+        }
+
+        return a > 0;
     }
 
 }

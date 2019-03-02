@@ -1,12 +1,10 @@
-package com.jeve.gestures.action;
+package com.jeve.gestures.tool;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.GestureDescription;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import com.jeve.gestures.Logger;
 
 public class ActionTool {
 
@@ -59,4 +57,5 @@ public class ActionTool {
         Logger.d("点击返回");
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
+
 }

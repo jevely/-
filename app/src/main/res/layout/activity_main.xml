@@ -9,12 +9,17 @@
         android:id="@+id/bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="申请权限1" />
+        android:text="申请权限" />
 
     <Button
-        android:id="@+id/bt2"
+        android:id="@+id/bt02"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="申请权限2" />
+        android:text="start"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

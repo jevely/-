@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name=".MyAccessibilityService"
+            android:name=".service.MyAccessibilityService"
             android:description="@string/accessibility_service_description"
             android:enabled="true"
             android:exported="false"

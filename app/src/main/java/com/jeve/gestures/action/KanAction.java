@@ -11,43 +11,51 @@ import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
- * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
- * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
- * com.cashtoutiao.news.ui.NewsDetailActivity 工作推荐 新闻
- * com.bytedance.sdk.openadsdk.activity.TTLandingPageActivity 广告
- * com.cashtoutiao.alivideodetail.AliVideoDetailActivity 视频
+ * 包名:com.xiangzi.jukandian
+ * <p>
+ * com.xiangzi.jukandian.activity.V2WelcomeActivity欢迎页
+ * com.xiangzi.jukandian.activity.MainActivity 首页
+ * com.xiangzi.jukandian.widget.dialog.UserIsRegDialog弹框
+ * com.xiangzi.jukandian.widget.dialog.QuitNewUserDialog弹框
+ * <p>
+ * com.xiangzi.jukandian.activity.NativeArticalDetailActivity新闻
+ * com.xiangzi.jukandian.activity.WebViewActivity新闻
+ * <p>
+ * com.xiangzinet.jkd.JKDActivity广告
  */
-public class HuiAction extends BaseAction {
+public class KanAction extends BaseAction {
 
-    public HuiAction() {
+    public KanAction() {
         super();
     }
 
-    public HuiAction(AppContent appContent) {
+    public KanAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.xiangzi.jukandian.activity.MainActivity":
+                Logger.d("聚看点主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.xiangzi.jukandian.activity.NativeArticalDetailActivity":
+            case "com.xiangzi.jukandian.activity.WebViewActivity":
+                Logger.d("聚看点新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
-                videoAction(service);
-                break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
+//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
+//                Logger.d("惠头条视频界面操作");
+//                videoAction(service);
+//                break;
+            case "com.xiangzi.jukandian.activity.V2WelcomeActivity":
+                Logger.d("聚看点欢迎界面");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("聚看点其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -67,7 +75,7 @@ public class HuiAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
+        while (time < 90) {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
             Thread.sleep(3000);
@@ -106,3 +114,4 @@ public class HuiAction extends BaseAction {
         }
     }
 }
+
