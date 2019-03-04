@@ -8,6 +8,7 @@ import com.jeve.gestures.content.ContentManager;
 
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
 import keeplive.je.com.keeplivesupportlibrary.KeepLiveManager;
 
 public class MyApplication extends Application {
@@ -32,6 +33,7 @@ public class MyApplication extends Application {
         //初始化保活
         KeepLiveManager.INSTANCE.init(this);
 
+        Bmob.initialize(this, "dbedc389b5b8c55f6d67074a3dacf111");
     }
 
     public static Context getContext() {
