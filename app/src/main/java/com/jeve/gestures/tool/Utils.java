@@ -1,5 +1,6 @@
 package com.jeve.gestures.tool;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AppOpsManager;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 
 import com.jeve.gestures.BuildConfig;
@@ -120,6 +122,24 @@ public class Utils {
         if (intent != null) {
             Logger.d("跳转:" + packageName);
             MyApplication.getContext().startActivity(intent);
+        }
+    }
+
+    /**
+     * 获取手机IMEI
+     */
+    public static final String getIMEI() {
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) MyApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            @SuppressLint("MissingPermission")
+            String imei = telephonyManager.getDeviceId();
+            if (imei == null) {
+                imei = "";
+            }
+            return imei;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
     }
 

@@ -11,44 +11,47 @@ import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
- * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
- * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
- * com.cashtoutiao.news.ui.NewsDetailActivity 工作推荐 新闻
- * com.bytedance.sdk.openadsdk.activity.TTLandingPageActivity 广告
- * com.cashtoutiao.alivideodetail.AliVideoDetailActivity 视频
+ * 牛牛头条
+ * com.huolea.bull包名
+ * com.huolea.bull.page.other.activity.SplashActivity启动页
+ * com.huolea.bull.page.other.activity.MainActivity主界面
+ * <p>
+ * com.huolea.bull.page.other.activity.WebActivity直接退出
+ * <p>
+ * com.huolea.bull.page.news.activity.NewsDetailActivity新闻界面
  */
-public class HuiAction extends BaseAction {
+public class NiuAction extends BaseAction {
 
-    public HuiAction() {
+    public NiuAction() {
         super();
     }
 
-    public HuiAction(AppContent appContent) {
+    public NiuAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.huolea.bull.page.other.activity.MainActivity":
+                Logger.d("牛牛头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.huolea.bull.page.news.activity.NewsDetailActivity":
+                Logger.d("牛牛头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
-                videoAction(service);
-                break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
-                Logger.d("惠头条启动界面操作");
+//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
+//                Logger.d("牛牛头条视频界面操作");
+//                videoAction(service);
+//                break;
+            case "com.huolea.bull.page.other.activity.SplashActivity":
+                Logger.d("牛牛头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("牛牛头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -68,20 +71,21 @@ public class HuiAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
-            Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
-            Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
-            time += 6;
-
-            if (recordTime(6000)) {
-                return;
-            }
-
-        }
+//        while (time < 120) {
+        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+        Thread.sleep(3000);
+        ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+        Thread.sleep(3000);
+        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+        Thread.sleep(3000);
+        ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+        Thread.sleep(3000);
+        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+        Thread.sleep(3000);
+//        }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
+        recordTime(15000);
     }
 
     //视频界面
@@ -100,15 +104,13 @@ public class HuiAction extends BaseAction {
     /**
      * 记录时间
      */
-    private boolean recordTime(long time) throws Exception {
+    private void recordTime(long time) throws Exception {
         setActionTime(getActionTime() + time);
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(15000);
-            return true;
         }
-        return false;
     }
 }

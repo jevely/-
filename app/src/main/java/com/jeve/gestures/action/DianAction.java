@@ -78,7 +78,9 @@ public class DianAction extends BaseAction {
             ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 520);
             Thread.sleep(5000);
             time += 10;
-            recordTime(10000);
+            if (recordTime(10000)) {
+                return;
+            }
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
@@ -100,13 +102,15 @@ public class DianAction extends BaseAction {
     /**
      * 记录时间
      */
-    private void recordTime(long time) throws Exception {
+    private boolean recordTime(long time) throws Exception {
         setActionTime(getActionTime() + time);
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(15000);
+            return true;
         }
+        return false;
     }
 }

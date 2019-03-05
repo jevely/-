@@ -78,7 +78,9 @@ public class ZhuanAction extends BaseAction {
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             time += 4;
 
-            recordTime(4000);
+            if (recordTime(4000)) {
+                return;
+            }
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
@@ -100,14 +102,16 @@ public class ZhuanAction extends BaseAction {
     /**
      * 记录时间
      */
-    private void recordTime(long time) throws Exception {
+    private boolean recordTime(long time) throws Exception {
         setActionTime(getActionTime() + time);
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(15000);
+            return true;
         }
+        return false;
     }
 }
 

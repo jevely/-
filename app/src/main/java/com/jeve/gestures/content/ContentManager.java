@@ -9,8 +9,11 @@ import com.jeve.gestures.DaoSession;
 import com.jeve.gestures.MyApplication;
 import com.jeve.gestures.action.BaseAction;
 import com.jeve.gestures.action.DianAction;
+import com.jeve.gestures.action.DongAction;
+import com.jeve.gestures.action.HuaAction;
 import com.jeve.gestures.action.HuiAction;
 import com.jeve.gestures.action.KanAction;
+import com.jeve.gestures.action.NiuAction;
 import com.jeve.gestures.action.ShuaAction;
 import com.jeve.gestures.action.ZhuanAction;
 
@@ -45,7 +48,7 @@ public class ContentManager {
 
     private ContentManager() {
         actionMap = new HashMap<>();
-        context = MyApplication.context;
+        context = MyApplication.getContext();
     }
 
     private static final class Buidler {
@@ -163,18 +166,42 @@ public class ContentManager {
         zhuanContent.setOpenSelfPackageName("com.yj.yueyouqian");
         zhuanContent.setChangeTime(0);
         zhuanContent.setAppName("赚钱阅有钱");
+        //东方头条
+        AppContent dongContent = new AppContent();
+        dongContent.setPackageName("com.songheng.eastnews");
+        dongContent.setOpenSelfPackageName("com.songheng.eastnews");
+        dongContent.setChangeTime(0);
+        dongContent.setAppName("东方头条");
+        //牛牛头条
+        AppContent niuContent = new AppContent();
+        niuContent.setPackageName("com.huolea.bull");
+        niuContent.setOpenSelfPackageName("com.huolea.bull");
+        niuContent.setChangeTime(0);
+        niuContent.setAppName("牛牛头条");
+        //花生头条
+        AppContent huaContent = new AppContent();
+        huaContent.setPackageName("com.xcm.huasheng");
+        huaContent.setOpenSelfPackageName("com.xcm.huasheng");
+        huaContent.setChangeTime(0);
+        huaContent.setAppName("花生头条");
 
         addContent(shuaContent);
         addContent(huiContent);
         addContent(juContent);
         addContent(dianContent);
         addContent(zhuanContent);
+        addContent(dongContent);
+        addContent(niuContent);
+        addContent(huaContent);
 
         actionMap.put(shuaContent.getPackageName(), new ShuaAction(shuaContent));
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
         actionMap.put(juContent.getPackageName(), new KanAction(juContent));
         actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
         actionMap.put(zhuanContent.getPackageName(), new ZhuanAction(zhuanContent));
+        actionMap.put(dongContent.getPackageName(), new DongAction(dongContent));
+        actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
+        actionMap.put(huaContent.getPackageName(), new HuaAction(huaContent));
     }
 
     public BaseAction getAction(AppContent content) {

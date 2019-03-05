@@ -72,7 +72,7 @@ public class ActionFloatButtonWindow {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         |WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-        layoutParams.gravity = Gravity.RIGHT | Gravity.CENTER;//这里相当于确定起点位置
+        layoutParams.gravity = Gravity.START | Gravity.CENTER;//这里相当于确定起点位置
         layoutParams.width = Utils.dip2px(context, 80);
         layoutParams.height = Utils.dip2px(context, 80);
 

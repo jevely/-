@@ -30,6 +30,8 @@ public class ActionManager {
 
     public void doAction(String pakcageName, String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
 
+        if(className.contains("android.widget.FrameLayout"))return;
+
         for (AppContent content : actionList) {
             if (content.getPackageName().contains(pakcageName)) {
                 //开始执行

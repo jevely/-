@@ -11,44 +11,46 @@ import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
- * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
- * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
- * com.cashtoutiao.news.ui.NewsDetailActivity 工作推荐 新闻
- * com.bytedance.sdk.openadsdk.activity.TTLandingPageActivity 广告
- * com.cashtoutiao.alivideodetail.AliVideoDetailActivity 视频
+ * 花生头条
+ * com.xcm.huasheng包名
+ * com.xcm.huasheng.ui.activity.SplashActivity启动页
+ * com.xcm.huasheng.ui.activity.MainActivity首页
+ * <p>
+ * com.xcm.huasheng.ui.activity.NewsDetailActivity新闻页面
+ * com.xcm.huasheng.ui.activity.VideoDetailActivity视频页面
  */
-public class HuiAction extends BaseAction {
+public class HuaAction extends BaseAction {
 
-    public HuiAction() {
+    public HuaAction() {
         super();
     }
 
-    public HuiAction(AppContent appContent) {
+    public HuaAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.xcm.huasheng.ui.activity.MainActivity":
+                Logger.d("花生头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.xcm.huasheng.ui.activity.NewsDetailActivity":
+                Logger.d("花生头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
+            case "com.xcm.huasheng.ui.activity.VideoDetailActivity":
+                Logger.d("花生头条视频界面操作");
                 videoAction(service);
                 break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
-                Logger.d("惠头条启动界面操作");
+            case "com.xcm.huasheng.ui.activity.SplashActivity":
+                Logger.d("花生头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("花生头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -68,7 +70,7 @@ public class HuiAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
+        while (time < 33) {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
             Thread.sleep(3000);
@@ -86,9 +88,9 @@ public class HuiAction extends BaseAction {
 
     //视频界面
     private void videoAction(AccessibilityService service) throws Exception {
-        Thread.sleep(30000);
+        Thread.sleep(31000);
         ActionTool.clickBack(service);
-        recordTime(30000);
+        recordTime(31000);
     }
 
     //其他界面 点击返回，退出至主界面

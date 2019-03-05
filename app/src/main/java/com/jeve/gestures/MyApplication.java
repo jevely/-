@@ -13,7 +13,7 @@ import keeplive.je.com.keeplivesupportlibrary.KeepLiveManager;
 
 public class MyApplication extends Application {
 
-    public static Context context;
+    private static Context context;
 
     @Override
     public void onCreate() {

@@ -11,44 +11,49 @@ import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
- * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
- * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
- * com.cashtoutiao.news.ui.NewsDetailActivity 工作推荐 新闻
- * com.bytedance.sdk.openadsdk.activity.TTLandingPageActivity 广告
- * com.cashtoutiao.alivideodetail.AliVideoDetailActivity 视频
+ * 东方头条
+ * com.songheng.eastnews包名
+ * com.oa.eastfirst.activity.WelcomeActivity欢迎页面
+ * com.songheng.eastfirst.common.view.widget.dialog.ImageGalleryActivityDialog领钱dialog
+ * com.songheng.eastfirst.common.view.activity.MainActivity主界面
+ * com.songheng.eastfirst.business.newstopic.view.activity.NewsTopicActivity新闻列表  直接退出
+ * com.songheng.eastfirst.common.view.activity.WebViewActivity直接退出
+ * <p>
+ * com.songheng.eastfirst.business.newsdetail.view.activity.NewsDetailH5Activity新闻页面
+ * com.songheng.eastfirst.business.video.view.activity.VideoDetailActivity视频页面
  */
-public class HuiAction extends BaseAction {
+public class DongAction extends BaseAction {
 
-    public HuiAction() {
+    public DongAction() {
         super();
     }
 
-    public HuiAction(AppContent appContent) {
+    public DongAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.songheng.eastfirst.common.view.activity.MainActivity":
+                Logger.d("东方头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.songheng.eastfirst.business.newsdetail.view.activity.NewsDetailH5Activity":
+                Logger.d("东方头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
+            case "com.songheng.eastfirst.business.video.view.activity.VideoDetailActivity":
+                Logger.d("东方头条视频界面操作");
                 videoAction(service);
                 break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
-                Logger.d("惠头条启动界面操作");
+            case "com.oa.eastfirst.activity.WelcomeActivity":
+                Logger.d("东方头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("东方头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -68,17 +73,16 @@ public class HuiAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
-            Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
-            Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
-            time += 6;
+        while (time < 60) {
+            Thread.sleep(12000);
+            ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 620);
+            Thread.sleep(1000);
+            ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 620);
+            time += 10;
 
-            if (recordTime(6000)) {
+            if (recordTime(10000)) {
                 return;
             }
-
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);

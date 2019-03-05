@@ -9,7 +9,8 @@ public class CheckContent extends BmobObject {
 
     private String emei;
     private String code;
-    private String time;
+    private Long time;
+    private Long useTime;
 
     public String getEmei() {
         return emei;
@@ -27,11 +28,19 @@ public class CheckContent extends BmobObject {
         this.code = code;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
+    }
+
+    public Long getUseTime() {
+        return useTime;
+    }
+
+    public void setUseTime(Long useTime) {
+        this.useTime = useTime;
     }
 }
