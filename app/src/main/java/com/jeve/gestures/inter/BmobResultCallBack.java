@@ -1,7 +1,7 @@
 package com.jeve.gestures.inter;
 
 /**
- * 检查用户等接口
+ * 网络请求界面回调
  */
 public interface BmobResultCallBack {
 

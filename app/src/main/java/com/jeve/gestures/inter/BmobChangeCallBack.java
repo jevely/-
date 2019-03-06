@@ -1,7 +1,7 @@
 package com.jeve.gestures.inter;
 
 /**
- * 网络服务接口
+ * 修改数据回调
  */
 public interface BmobChangeCallBack {
 
