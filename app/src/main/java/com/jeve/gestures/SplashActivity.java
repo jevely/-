@@ -25,11 +25,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        CheckContent content = new CheckContent();
-        content.setTime(1000 * 60L);
-        content.setCode("LJW");
-        BmobTool.save(content);
-
         requestPermission();
     }
 

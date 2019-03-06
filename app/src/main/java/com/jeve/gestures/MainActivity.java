@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -17,16 +16,17 @@ import com.jeve.gestures.adapter.MainAdapter;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.CheckContent;
 import com.jeve.gestures.content.ContentManager;
-import com.jeve.gestures.inter.BmobCallBack;
-import com.jeve.gestures.inter.BmobCallBack2;
+import com.jeve.gestures.inter.BmobResultCallBack;
+import com.jeve.gestures.service.BmobManager;
 import com.jeve.gestures.service.BmobTool;
+import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.SharePreferenceTool;
 import com.jeve.gestures.tool.Utils;
 import com.jeve.gestures.window.ActionFloatButtonWindow;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, MainAdapter.ClickCallBack {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MainAdapter.ClickCallBack, BmobResultCallBack {
 
     private RecyclerView recyclerView;
 
@@ -42,37 +42,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         setContentView(R.layout.activity_main);
         init();
         initEvent();
-
-        String code = SharePreferenceTool.getInstance().getString("code");
-        checkCode(code);
+        BmobManager.getInstance().setBmobResultCallBack(this);
+        BmobManager.getInstance().checkUser();
     }
 
-    private void checkCode(String code) {
-        if (TextUtils.isEmpty(code)) {
-            code_re.setVisibility(View.VISIBLE);
-        } else {
-            BmobTool.get(code, new BmobCallBack() {
-                @Override
-                public void result(List<CheckContent> checkContent) {
-                    if (checkContent.size() == 1) {
-                        CheckContent content = checkContent.get(0);
-                        String emei = Utils.getIMEI();
-                        if (TextUtils.equals(content.getEmei(), emei)) {
-                            code_re.setVisibility(View.GONE);
-                        }
-                    } else {
-                        //错误 联系管理员
-
-                    }
-                }
-
-                @Override
-                public void error() {
-                    //错误
-                }
-            });
-        }
-    }
 
     private void init() {
         List<AppContent> allContent = ContentManager.getInstance().getAllContent();
@@ -112,39 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.sure:
                 //验证
                 final String code = edit.getText().toString().trim();
-                BmobTool.get(code, new BmobCallBack() {
-                    @Override
-                    public void result(List<CheckContent> checkContent) {
-                        if (checkContent.size() == 1) {
-                            CheckContent content = checkContent.get(0);
-                            String emei = Utils.getIMEI();
-                            if (!TextUtils.isEmpty(emei)) {
-                                content.setEmei(emei);
-                                BmobTool.change(content, new BmobCallBack2() {
-                                    @Override
-                                    public void result() {
-                                        //开始使用
-                                        SharePreferenceTool.getInstance().setString("code", code);
-                                        code_re.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void error() {
-
-                                    }
-                                });
-                            }
-                        } else {
-                            //错误 联系管理员
-
-                        }
-                    }
-
-                    @Override
-                    public void error() {
-                        //错误
-                    }
-                });
+                BmobManager.getInstance().checkCode(code);
                 break;
         }
     }
@@ -192,6 +133,56 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ActionManager.getInstance().addActionContent(content);
         } else {
             ActionManager.getInstance().removeActionContent(content);
+        }
+    }
+
+    @Override
+    public void checkUser(boolean isUser, int code) {
+        Logger.d("checkuser thread = " + Thread.currentThread().getName());
+        if (isUser) {
+            code_re.setVisibility(View.GONE);
+        } else {
+            switch (code) {
+                case 1:
+
+                    break;
+                case 2:
+                    Toast.makeText(this, "验证码已到期", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(this, "验证码输入错误", Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                    Toast.makeText(this, "未知错误", Toast.LENGTH_SHORT).show();
+                    break;
+                case 5:
+                    Toast.makeText(this, "请检查网络,重启应用", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            code_re.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void checkCode(boolean success, int code) {
+        Logger.d("checkCode thread = " + Thread.currentThread().getName());
+        if (success) {
+            code_re.setVisibility(View.GONE);
+        } else {
+            switch (code) {
+                case 1:
+                    Toast.makeText(this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(this, "验证码已经使用过", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(this, "验证码输入错误", Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                    Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
     }
 }
