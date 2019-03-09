@@ -35,25 +35,25 @@ public class DaAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         switch (className) {
-            case "com.cashtoutiao.account.ui.main.MainTabActivity":
-                Logger.d("惠头条主界面操作");
+            case "com.build.dazhong.reconsitution.home.activity.MainActivity_":
+                Logger.d("大众头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.news.ui.NewsDetailActivity":
-                Logger.d("惠头条新闻界面操作");
+            case "com.build.dazhong.reconsitution.news.activity.NewsDetailListActivity":
+                Logger.d("大众头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-                Logger.d("惠头条视频界面操作");
-                videoAction(service);
-                break;
-            case "com.cashtoutiao.common.ui.SplashActivity":
-                Logger.d("惠头条启动界面操作");
+//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
+//                Logger.d("大众头条视频界面操作");
+//                videoAction(service);
+//                break;
+            case "com.build.dazhong.reconsitution.splash.SplashActivity":
+                Logger.d("大众头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("惠头条其他界面操作");
+                Logger.d("大众头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -65,7 +65,7 @@ public class DaAction extends BaseAction {
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        Logger.d("大众头条主页操作完毕");
         recordTime(3000);
     }
 
@@ -73,14 +73,14 @@ public class DaAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 120) {
-            Thread.sleep(3000);
+        while (time < 35) {
             ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
-            time += 6;
+            Thread.sleep(4000);
+            time += 5;
 
-            if (recordTime(6000)) {
+            if (recordTime(5000)) {
                 return;
             }
 
@@ -98,7 +98,7 @@ public class DaAction extends BaseAction {
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
-        Thread.sleep(1000);
+        Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
 

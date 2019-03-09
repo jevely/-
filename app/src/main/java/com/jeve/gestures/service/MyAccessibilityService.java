@@ -34,9 +34,14 @@ public class MyAccessibilityService extends AccessibilityService {
                 return;
             }
 
-            nodeInfo = event.getSource();
-            className = event.getClassName().toString();
-            pakcageName = event.getPackageName().toString();
+            //处理问题界面
+            if (!event.getClassName().toString().contains("android.widget.FrameLayout")
+                    && !event.getClassName().toString().contains("com.bytedance.sdk.openadsdk.activity.TTDelegateActivity")) {
+                nodeInfo = event.getSource();
+                className = event.getClassName().toString();
+                pakcageName = event.getPackageName().toString();
+
+            }
 
             Logger.d(pakcageName + "--" + className);
 
@@ -152,9 +157,11 @@ public class MyAccessibilityService extends AccessibilityService {
         public void run() {
             try {
                 while (true) {
+                    Logger.d("循环睡眠开始");
                     Thread.sleep(1000);
+                    Logger.d("循环睡眠完毕");
                     if (ActionCheckTool.getInstance().getShouldAction()) {
-//                        Logger.d("正在执行工作：" + pakcageName);
+                        Logger.d("正在执行工作：" + pakcageName);
                         ActionManager.getInstance().doAction(pakcageName, className, nodeInfo, MyAccessibilityService.this);
                     } else {
 //                        Logger.d("没有执行工作：" + pakcageName);

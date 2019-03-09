@@ -1,6 +1,7 @@
 package com.jeve.gestures.action;
 
 import android.accessibilityservice.AccessibilityService;
+import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -20,6 +21,8 @@ public class ActionManager {
         actionList = new ArrayList<>();
     }
 
+    public long clickBack = 2000;
+
     private static class ActionBulder {
         private final static ActionManager manager = new ActionManager();
     }
@@ -30,10 +33,9 @@ public class ActionManager {
 
     public void doAction(String pakcageName, String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
 
-        if(className.contains("android.widget.FrameLayout"))return;
-
         for (AppContent content : actionList) {
             if (content.getPackageName().contains(pakcageName)) {
+                Logger.d("开始执行action class = " + className);
                 //开始执行
                 BaseAction baseAction = ContentManager.getInstance().getAction(content);
                 if (baseAction != null) baseAction.checkAction(className, nodeInfo, service);
@@ -41,22 +43,15 @@ public class ActionManager {
             }
         }
 
-        if (chekcSplash(className)) {
-            Logger.d("什么都不错界面");
-        } else {
-            //都不是，可能跳转到其他APP，点击返回
-            Logger.d("跳转到其他APP:" + className);
-            otherAction(service);
-        }
-    }
+        //都不是，可能跳转到其他APP，点击返回
+        Logger.d("跳转到其他APP:" + className);
+        otherAction(service);
 
-    private boolean chekcSplash(String packageName) {
-        return packageName.contains("android.widget.FrameLayout");
     }
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
-        Thread.sleep(1000);
+        Thread.sleep(clickBack);
         ActionTool.clickBack(service);
     }
 

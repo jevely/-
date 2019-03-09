@@ -138,7 +138,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void checkUser(boolean isUser, int code) {
-        Logger.d("checkuser thread = " + Thread.currentThread().getName());
         if (isUser) {
             code_re.setVisibility(View.GONE);
         } else {

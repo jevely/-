@@ -8,6 +8,7 @@ import com.jeve.gestures.DaoMaster;
 import com.jeve.gestures.DaoSession;
 import com.jeve.gestures.MyApplication;
 import com.jeve.gestures.action.BaseAction;
+import com.jeve.gestures.action.DaAction;
 import com.jeve.gestures.action.DianAction;
 import com.jeve.gestures.action.DongAction;
 import com.jeve.gestures.action.HuaAction;
@@ -107,7 +108,14 @@ public class ContentManager {
      * 修改
      */
     public void changeContent(AppContent appContent) {
-        appContentDao.update(appContent);
+        AppContent hasContent = getContent(appContent.getPackageName());
+        if (hasContent != null) {
+            hasContent.setActionTime(appContent.getActionTime());
+            appContentDao.update(hasContent);
+        } else {
+            appContentDao.insert(appContent);
+        }
+
     }
 
     /**
@@ -184,6 +192,12 @@ public class ContentManager {
         huaContent.setOpenSelfPackageName("com.xcm.huasheng");
         huaContent.setChangeTime(0);
         huaContent.setAppName("花生头条");
+        //大众头条
+        AppContent daContent = new AppContent();
+        daContent.setPackageName("com.build.dazhong");
+        daContent.setOpenSelfPackageName("com.build.dazhong");
+        daContent.setChangeTime(0);
+        daContent.setAppName("大众头条");
 
         addContent(shuaContent);
         addContent(huiContent);
@@ -193,6 +207,7 @@ public class ContentManager {
         addContent(dongContent);
         addContent(niuContent);
         addContent(huaContent);
+        addContent(daContent);
 
         actionMap.put(shuaContent.getPackageName(), new ShuaAction(shuaContent));
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
@@ -202,6 +217,7 @@ public class ContentManager {
         actionMap.put(dongContent.getPackageName(), new DongAction(dongContent));
         actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
         actionMap.put(huaContent.getPackageName(), new HuaAction(huaContent));
+        actionMap.put(daContent.getPackageName(), new DaAction(daContent));
     }
 
     public BaseAction getAction(AppContent content) {

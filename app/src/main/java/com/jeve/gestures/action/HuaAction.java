@@ -95,7 +95,7 @@ public class HuaAction extends BaseAction {
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
-        Thread.sleep(1000);
+        Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
 

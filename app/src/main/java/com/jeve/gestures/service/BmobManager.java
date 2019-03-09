@@ -98,10 +98,21 @@ public class BmobManager implements BmobGetCallBack, BmobCheckCallBack, BmobChan
                 String emei = Utils.getIMEI();
                 if (!TextUtils.isEmpty(emei)) {
                     content.setEmei(emei);
+                    content.setUseTime(0L);
                     //更新数据
                     BmobTool.change(content, this);
+                    //保存code
+                    SharePreferenceTool.getInstance().setString("code", content.getCode());
                 }
             } else {
+                if (TextUtils.equals(content.getEmei(), Utils.getIMEI())) {
+                    //可以使用
+                    if (bmobResultCallBack != null)
+                        bmobResultCallBack.checkCode(true, 0);
+                    //保存code
+                    SharePreferenceTool.getInstance().setString("code", content.getCode());
+                    return;
+                }
                 //别人已经用过
                 if (bmobResultCallBack != null)
                     bmobResultCallBack.checkCode(false, 2);
