@@ -1,7 +1,6 @@
-package com.jeve.gestures;
+package com.jeve.gestures.window;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.view.Gravity;
@@ -9,6 +8,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.jeve.gestures.tool.Logger;
+import com.jeve.gestures.R;
+import com.jeve.gestures.tool.Utils;
+import com.jeve.gestures.tool.ActionCheckTool;
 
 /**
  * app锁屏（window）
@@ -68,7 +72,7 @@ public class ActionFloatButtonWindow {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         |WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-        layoutParams.gravity = Gravity.RIGHT | Gravity.CENTER;//这里相当于确定起点位置
+        layoutParams.gravity = Gravity.START | Gravity.CENTER;//这里相当于确定起点位置
         layoutParams.width = Utils.dip2px(context, 80);
         layoutParams.height = Utils.dip2px(context, 80);
 
@@ -103,7 +107,7 @@ public class ActionFloatButtonWindow {
         float_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActionTool.getInstance().setShouldAction()) {
+                if (ActionCheckTool.getInstance().setShouldAction()) {
                     float_tv.setText("已经开始");
                 } else {
                     float_tv.setText("点击开始");

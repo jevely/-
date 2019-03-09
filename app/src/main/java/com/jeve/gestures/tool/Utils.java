@@ -1,16 +1,23 @@
-package com.jeve.gestures;
+package com.jeve.gestures.tool;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AppOpsManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
+
+import com.jeve.gestures.BuildConfig;
+import com.jeve.gestures.MyApplication;
+import com.jeve.gestures.tool.Logger;
 
 import java.lang.reflect.Method;
 
@@ -104,5 +111,37 @@ public class Utils {
         }).start();
 
     }
+
+    /**
+     * 启动APP
+     */
+    public static void startApp(String packageName) {
+        PackageManager packageManager = MyApplication.getContext().getPackageManager();
+        Intent intent;
+        intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            Logger.d("跳转:" + packageName);
+            MyApplication.getContext().startActivity(intent);
+        }
+    }
+
+    /**
+     * 获取手机IMEI
+     */
+    public static final String getIMEI() {
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) MyApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            @SuppressLint("MissingPermission")
+            String imei = telephonyManager.getDeviceId();
+            if (imei == null) {
+                imei = "";
+            }
+            return imei;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
 
 }

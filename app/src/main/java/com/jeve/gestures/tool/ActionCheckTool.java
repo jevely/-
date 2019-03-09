@@ -1,16 +1,16 @@
-package com.jeve.gestures;
+package com.jeve.gestures.tool;
 
-public class ActionTool {
+public class ActionCheckTool {
 
-    private ActionTool() {
+    private ActionCheckTool() {
     }
 
     private static class Budler {
-        private static final ActionTool actionTool = new ActionTool();
+        private static final ActionCheckTool ACTION_CHECK_TOOL = new ActionCheckTool();
     }
 
-    public static ActionTool getInstance() {
-        return Budler.actionTool;
+    public static ActionCheckTool getInstance() {
+        return Budler.ACTION_CHECK_TOOL;
     }
 
     private boolean shouldAction = false;
