@@ -1,12 +1,15 @@
 package com.jeve.gestures.service;
 
 import android.accessibilityservice.AccessibilityService;
+import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.jeve.gestures.tool.ActionCheckTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.action.ActionManager;
+
+import java.util.List;
 
 /**
  * 辅助功能检测最上层应用服务
@@ -36,7 +39,8 @@ public class MyAccessibilityService extends AccessibilityService {
 
             //处理问题界面
             if (!event.getClassName().toString().contains("android.widget.FrameLayout")
-                    && !event.getClassName().toString().contains("com.bytedance.sdk.openadsdk.activity.TTDelegateActivity")) {
+                    && !event.getClassName().toString().contains("com.bytedance.sdk.openadsdk.activity.TTDelegateActivity")
+                    && !event.getClassName().toString().contains("android.app.Dialog")) {
                 nodeInfo = event.getSource();
                 className = event.getClassName().toString();
                 pakcageName = event.getPackageName().toString();
@@ -157,11 +161,11 @@ public class MyAccessibilityService extends AccessibilityService {
         public void run() {
             try {
                 while (true) {
-                    Logger.d("循环睡眠开始");
+//                    Logger.d("循环睡眠开始");
                     Thread.sleep(1000);
-                    Logger.d("循环睡眠完毕");
+//                    Logger.d("循环睡眠完毕");
                     if (ActionCheckTool.getInstance().getShouldAction()) {
-                        Logger.d("正在执行工作：" + pakcageName);
+//                        Logger.d("正在执行工作：" + pakcageName);
                         ActionManager.getInstance().doAction(pakcageName, className, nodeInfo, MyAccessibilityService.this);
                     } else {
 //                        Logger.d("没有执行工作：" + pakcageName);

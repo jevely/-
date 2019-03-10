@@ -10,6 +10,8 @@ import com.jeve.gestures.tool.ActionTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
+import java.util.List;
+
 /**
  * 大众头条
  * com.build.dazhong包名
@@ -61,7 +63,15 @@ public class DaAction extends BaseAction {
 
     //主界面  滑动屏幕三分之一，点击
     private void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+
         Thread.sleep(2000);
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("先去逛逛");
+        if (moreView != null && !moreView.isEmpty()) {
+            Logger.d("大众头条首页意外界面");
+            ActionTool.clickBack(service);
+            Thread.sleep(1000);
+        }
+        Logger.d("大众头条正常界面");
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
