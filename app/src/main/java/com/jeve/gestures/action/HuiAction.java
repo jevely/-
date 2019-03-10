@@ -10,6 +10,8 @@ import com.jeve.gestures.tool.ActionTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
+import java.util.List;
+
 /**
  * com.cashtoutiao.homepage.ui.dialog.PopInfoDialog 弹框退出
  * com.cashtoutiao.account.ui.main.MainTabActivity 主界面
@@ -46,6 +48,15 @@ public class HuiAction extends BaseAction {
                 Logger.d("惠头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
+                break;
+            case "com.cashtoutiao.common.ui.dialog.UpdateAppDialog":
+                //升级情况
+                Logger.d("惠头条升级界面操作");
+                updateAction(nodeInfo, service);
+                break;
+            case "com.cashtoutiao.common.ui.dialog.CustomDialog":
+                Logger.d("惠头条广告下载界面操作");
+                adDownloadAction(nodeInfo, service);
                 break;
             default:
                 Logger.d("惠头条其他界面操作");
@@ -97,6 +108,26 @@ public class HuiAction extends BaseAction {
         ActionTool.clickBack(service);
     }
 
+    //升级情况处理
+    private void updateAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        Thread.sleep(2000);
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
+        if (moreView != null && moreView.size() == 1) {
+            Logger.d("moreView = " + moreView.size());
+            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+    }
+
+    //广告下载情况处理
+    private void adDownloadAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        Thread.sleep(2000);
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("取消");
+        if (moreView != null && moreView.size() == 1) {
+            Logger.d("广告下载 = " + moreView.size());
+            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        }
+    }
+
     /**
      * 记录时间
      */
@@ -106,7 +137,7 @@ public class HuiAction extends BaseAction {
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
-            Thread.sleep(15000);
+            Thread.sleep(ActionManager.getInstance().appChange);
             return true;
         }
         return false;

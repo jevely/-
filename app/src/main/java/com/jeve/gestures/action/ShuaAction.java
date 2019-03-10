@@ -50,7 +50,7 @@ public class ShuaAction extends BaseAction {
         setActionTime(getActionTime() + 10000);
         ContentManager.getInstance().changeContent(getAppContent());
         //一个小时后跳转新闻
-        if (getChangeAppTime() != 0 && getActionTime() > 9000 && !TextUtils.isEmpty(getChangeAppPackageName())
+        if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(15000);

@@ -2,6 +2,7 @@ package com.jeve.gestures.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -45,6 +46,11 @@ public class MyAccessibilityService extends AccessibilityService {
                 className = event.getClassName().toString();
                 pakcageName = event.getPackageName().toString();
 
+            }
+
+            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
+            if (moreView != null) {
+                Logger.d("moreView = " + moreView.size());
             }
 
             Logger.d(pakcageName + "--" + className);

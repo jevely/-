@@ -148,28 +148,29 @@ public class ContentManager {
         shuaContent.setPackageName("com.jm.video");
         shuaContent.setOpenSelfPackageName("com.jm.video");
         shuaContent.setChangePackageName("com.cashtoutiao");
-        shuaContent.setChangeTime(1000 * 60 * 2);
+        shuaContent.setChangeTime(1000 * 60 * 10);
         shuaContent.setAppName("刷宝");
         //惠头条
         AppContent huiContent = new AppContent();
         huiContent.setPackageName("com.cashtoutiao,com.bytedance");
         huiContent.setOpenSelfPackageName("com.cashtoutiao");
-        huiContent.setChangePackageName("com.xiangzi.jukandian");
-        huiContent.setChangeTime(1000 * 60 * 2);
+//        huiContent.setChangePackageName("com.xiangzi.jukandian");
+//        huiContent.setChangeTime(1000 * 60 * 10);
+        huiContent.setChangeTime(0);
         huiContent.setAppName("惠头条");
         //聚看点
         AppContent juContent = new AppContent();
         juContent.setPackageName("com.xiangzi.jukandian");
         juContent.setOpenSelfPackageName("com.xiangzi.jukandian");
         juContent.setChangePackageName("com.yingliang.clicknews");
-        juContent.setChangeTime(1000 * 60 * 2);
+        juContent.setChangeTime(1000 * 60 * 10);
         juContent.setAppName("聚看点");
         //点点新闻
         AppContent dianContent = new AppContent();
         dianContent.setPackageName("com.yingliang.clicknews");
         dianContent.setOpenSelfPackageName("com.yingliang.clicknews");
         dianContent.setChangePackageName("com.songheng.eastnews");
-        dianContent.setChangeTime(1000 * 60 * 2);
+        dianContent.setChangeTime(1000 * 60 * 10);
         dianContent.setAppName("点点新闻");
         //赚钱阅有钱
 //        AppContent zhuanContent = new AppContent();
@@ -182,21 +183,21 @@ public class ContentManager {
         dongContent.setPackageName("com.songheng.eastnews");
         dongContent.setOpenSelfPackageName("com.songheng.eastnews");
         dongContent.setChangePackageName("com.huolea.bull");
-        dongContent.setChangeTime(1000 * 60 * 2);
+        dongContent.setChangeTime(1000 * 60 * 10);
         dongContent.setAppName("东方头条");
         //牛牛头条
         AppContent niuContent = new AppContent();
         niuContent.setPackageName("com.huolea.bull");
         niuContent.setOpenSelfPackageName("com.huolea.bull");
         niuContent.setChangePackageName("com.xcm.huasheng");
-        niuContent.setChangeTime(1000 * 60 * 2);
+        niuContent.setChangeTime(1000 * 60 * 10);
         niuContent.setAppName("牛牛头条");
         //花生头条
         AppContent huaContent = new AppContent();
         huaContent.setPackageName("com.xcm.huasheng");
         huaContent.setOpenSelfPackageName("com.xcm.huasheng");
         huaContent.setChangePackageName("com.build.dazhong");
-        huaContent.setChangeTime(1000 * 60 * 2);
+        huaContent.setChangeTime(1000 * 60 * 10);
         huaContent.setAppName("花生头条");
         //大众头条
         AppContent daContent = new AppContent();

@@ -22,6 +22,7 @@ public class ActionManager {
     }
 
     public long clickBack = 2000;
+    public long appChange = 20000;
 
     private static class ActionBulder {
         private final static ActionManager manager = new ActionManager();

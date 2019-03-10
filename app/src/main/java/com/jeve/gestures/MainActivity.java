@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.bt02:
                 List<AppContent> list = ActionManager.getInstance().getAppList();
                 if (!list.isEmpty()) {
-                    Utils.startApp(list.get(0).getPackageName());
+                    Utils.startApp(list.get(0).getOpenSelfPackageName());
                 }
                 break;
             case R.id.sure:

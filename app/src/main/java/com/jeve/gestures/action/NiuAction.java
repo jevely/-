@@ -110,7 +110,7 @@ public class NiuAction extends BaseAction {
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             Utils.startApp(getChangeAppPackageName());
-            Thread.sleep(15000);
+            Thread.sleep(ActionManager.getInstance().appChange);
         }
     }
 }
