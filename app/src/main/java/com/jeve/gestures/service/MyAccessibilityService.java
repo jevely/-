@@ -17,11 +17,6 @@ import java.util.List;
  */
 public class MyAccessibilityService extends AccessibilityService {
 
-    public static final String ACTION_BACK = "action_back";
-    public static final String ACTION_POWER = "action_power";
-    public static final String ACTION_RECENT = "action_recent";
-    public static final String ACTION_THEME_UPDATE = "action_theme_update";
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -172,7 +167,10 @@ public class MyAccessibilityService extends AccessibilityService {
 //                    Logger.d("循环睡眠完毕");
                     if (ActionCheckTool.getInstance().getShouldAction()) {
 //                        Logger.d("正在执行工作：" + pakcageName);
-                        ActionManager.getInstance().doAction(pakcageName, className, nodeInfo, MyAccessibilityService.this);
+                        String pakcageName2 = pakcageName;
+                        String className2 = className;
+                        AccessibilityNodeInfo nodeInfo2 = nodeInfo;
+                        ActionManager.getInstance().doAction(pakcageName2, className2, nodeInfo2, MyAccessibilityService.this);
                     } else {
 //                        Logger.d("没有执行工作：" + pakcageName);
                     }
