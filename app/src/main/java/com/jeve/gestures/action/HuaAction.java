@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
@@ -31,26 +32,32 @@ public class HuaAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入花生头条 checkAction: " + className);
         switch (className) {
             case "com.xcm.huasheng.ui.activity.MainActivity":
                 Logger.d("花生头条主界面操作");
+                LocalLogTool.writeTxtToFile("花生头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.xcm.huasheng.ui.activity.NewsDetailActivity":
                 Logger.d("花生头条新闻界面操作");
+                LocalLogTool.writeTxtToFile("花生头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
             case "com.xcm.huasheng.ui.activity.VideoDetailActivity":
                 Logger.d("花生头条视频界面操作");
+                LocalLogTool.writeTxtToFile("花生头条视频界面操作");
                 videoAction(service);
                 break;
             case "com.xcm.huasheng.ui.activity.SplashActivity":
                 Logger.d("花生头条启动界面操作");
+                LocalLogTool.writeTxtToFile("花生头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
                 Logger.d("花生头条其他界面操作");
+                LocalLogTool.writeTxtToFile("花生头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -62,7 +69,7 @@ public class HuaAction extends BaseAction {
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        LocalLogTool.writeTxtToFile("花生头条主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -76,11 +83,10 @@ public class HuaAction extends BaseAction {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             time += 6;
-
+            LocalLogTool.writeTxtToFile("花生头条新闻单次操作完毕");
             if (recordTime(6000)) {
                 return;
             }
-
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
@@ -90,11 +96,13 @@ public class HuaAction extends BaseAction {
     private void videoAction(AccessibilityService service) throws Exception {
         Thread.sleep(31000);
         ActionTool.clickBack(service);
+        LocalLogTool.writeTxtToFile("花生头条视频单次操作完毕");
         recordTime(31000);
     }
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("花生头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -107,6 +115,7 @@ public class HuaAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("花生头条跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

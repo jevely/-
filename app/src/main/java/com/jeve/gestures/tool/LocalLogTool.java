@@ -4,6 +4,8 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 本地日志
@@ -13,7 +15,7 @@ public class LocalLogTool {
     /**
      * 本地记录日志
      */
-    public void writeTxtToFile(String strcontent) {
+    public static void writeTxtToFile(String strcontent) {
 
         String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
         String fileName = "locallog.txt";
@@ -22,7 +24,8 @@ public class LocalLogTool {
 
         String strFilePath = filePath + fileName;
 
-        String strContent = strcontent + "\r\n";
+
+        String strContent = getTime() + ": " + strcontent + "\r\n";
         RandomAccessFile raf = null;
         try {
             File file = new File(strFilePath);
@@ -45,7 +48,7 @@ public class LocalLogTool {
     }
 
     // 生成文件
-    private File makeFilePath(String filePath, String fileName) {
+    private static File makeFilePath(String filePath, String fileName) {
         File file = null;
         makeRootDirectory(filePath);
         try {
@@ -70,6 +73,12 @@ public class LocalLogTool {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
     }
 
 }

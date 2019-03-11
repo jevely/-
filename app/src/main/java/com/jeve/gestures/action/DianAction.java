@@ -7,10 +7,12 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
 /**
+ * 点点新闻
  * com.yingliang.clicknews包名
  * com.yingliang.clicknews.module.splash.SplashActivity启动页
  * com.bytedance.sdk.openadsdk.activity.TTDelegateActivity主界面
@@ -32,14 +34,16 @@ public class DianAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入点点新闻 checkAction: " + className);
         switch (className) {
-            case "com.bytedance.sdk.openadsdk.activity.TTDelegateActivity":
             case "com.yingliang.clicknews.MainActivity":
                 Logger.d("点点新闻主界面操作");
+                LocalLogTool.writeTxtToFile("点点新闻主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.yingliang.clicknews.activity.NewsActivity":
                 Logger.d("点点新闻新闻界面操作");
+                LocalLogTool.writeTxtToFile("点点新闻新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
 //            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
@@ -48,10 +52,12 @@ public class DianAction extends BaseAction {
 //                break;
             case "com.yingliang.clicknews.module.splash.SplashActivity":
                 Logger.d("点点新闻启动页");
+                LocalLogTool.writeTxtToFile("点点新闻启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
+                LocalLogTool.writeTxtToFile("点点新闻其他界面操作");
                 Logger.d("点点新闻其他界面操作");
                 otherAction(service);
                 break;
@@ -64,7 +70,7 @@ public class DianAction extends BaseAction {
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        LocalLogTool.writeTxtToFile("点点新闻主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -78,6 +84,7 @@ public class DianAction extends BaseAction {
             ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 520);
             Thread.sleep(5000);
             time += 10;
+            LocalLogTool.writeTxtToFile("点点新闻新闻单次操作完毕");
             if (recordTime(10000)) {
                 return;
             }
@@ -95,6 +102,7 @@ public class DianAction extends BaseAction {
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("点点新闻其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -107,6 +115,7 @@ public class DianAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("点点新闻跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

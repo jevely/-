@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
@@ -31,35 +32,43 @@ public class HuiAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入惠头条 checkAction: " + className);
         switch (className) {
             case "com.cashtoutiao.account.ui.main.MainTabActivity":
                 Logger.d("惠头条主界面操作");
+                LocalLogTool.writeTxtToFile("惠头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.cashtoutiao.news.ui.NewsDetailActivity":
                 Logger.d("惠头条新闻界面操作");
+                LocalLogTool.writeTxtToFile("惠头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
             case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
                 Logger.d("惠头条视频界面操作");
+                LocalLogTool.writeTxtToFile("惠头条视频界面操作");
                 videoAction(service);
                 break;
             case "com.cashtoutiao.common.ui.SplashActivity":
                 Logger.d("惠头条启动界面操作");
+                LocalLogTool.writeTxtToFile("惠头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             case "com.cashtoutiao.common.ui.dialog.UpdateAppDialog":
                 //升级情况
                 Logger.d("惠头条升级界面操作");
+                LocalLogTool.writeTxtToFile("惠头条升级界面操作");
                 updateAction(nodeInfo, service);
                 break;
             case "com.cashtoutiao.common.ui.dialog.CustomDialog":
                 Logger.d("惠头条广告下载界面操作");
+                LocalLogTool.writeTxtToFile("惠头条广告下载界面操作");
                 adDownloadAction(nodeInfo, service);
                 break;
             default:
                 Logger.d("惠头条其他界面操作");
+                LocalLogTool.writeTxtToFile("惠头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -71,7 +80,7 @@ public class HuiAction extends BaseAction {
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        LocalLogTool.writeTxtToFile("惠头条主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -85,7 +94,7 @@ public class HuiAction extends BaseAction {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             time += 6;
-
+            LocalLogTool.writeTxtToFile("惠头条新闻单次操作完毕");
             if (recordTime(6000)) {
                 return;
             }
@@ -99,11 +108,13 @@ public class HuiAction extends BaseAction {
     private void videoAction(AccessibilityService service) throws Exception {
         Thread.sleep(30000);
         ActionTool.clickBack(service);
+        LocalLogTool.writeTxtToFile("惠头条视频单次操作完毕");
         recordTime(30000);
     }
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("惠头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -115,6 +126,7 @@ public class HuiAction extends BaseAction {
         if (moreView != null && moreView.size() == 1) {
             Logger.d("moreView = " + moreView.size());
             moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            LocalLogTool.writeTxtToFile("惠头条升级情况界面单次操作完毕");
         }
     }
 
@@ -125,6 +137,7 @@ public class HuiAction extends BaseAction {
         if (moreView != null && moreView.size() == 1) {
             Logger.d("广告下载 = " + moreView.size());
             moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            LocalLogTool.writeTxtToFile("惠头条广告下载界面单次操作完毕");
         }
     }
 
@@ -136,6 +149,7 @@ public class HuiAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("惠头条跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

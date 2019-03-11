@@ -8,6 +8,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ActionManager {
         for (AppContent content : actionList) {
             if (content.getPackageName().contains(pakcageName)) {
                 Logger.d("开始执行action class = " + className);
+                LocalLogTool.writeTxtToFile("循环找到APP：" + className);
                 //开始执行
                 BaseAction baseAction = ContentManager.getInstance().getAction(content);
                 if (baseAction != null) baseAction.checkAction(className, nodeInfo, service);

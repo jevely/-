@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
@@ -36,13 +37,16 @@ public class DaAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入大众头条 checkAction: " + className);
         switch (className) {
             case "com.build.dazhong.reconsitution.home.activity.MainActivity_":
                 Logger.d("大众头条主界面操作");
+                LocalLogTool.writeTxtToFile("大众头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.build.dazhong.reconsitution.news.activity.NewsDetailListActivity":
                 Logger.d("大众头条新闻界面操作");
+                LocalLogTool.writeTxtToFile("大众头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
 //            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
@@ -50,11 +54,13 @@ public class DaAction extends BaseAction {
 //                videoAction(service);
 //                break;
             case "com.build.dazhong.reconsitution.splash.SplashActivity":
+                LocalLogTool.writeTxtToFile("大众头条启动界面操作");
                 Logger.d("大众头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
+                LocalLogTool.writeTxtToFile("大众头条其他界面操作");
                 Logger.d("大众头条其他界面操作");
                 otherAction(service);
                 break;
@@ -76,6 +82,7 @@ public class DaAction extends BaseAction {
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
         Logger.d("大众头条主页操作完毕");
+        LocalLogTool.writeTxtToFile("大众头条主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -89,7 +96,7 @@ public class DaAction extends BaseAction {
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             Thread.sleep(4000);
             time += 5;
-
+            LocalLogTool.writeTxtToFile("大众头条新闻单次操作完毕");
             if (recordTime(5000)) {
                 return;
             }
@@ -108,6 +115,7 @@ public class DaAction extends BaseAction {
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("大众头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -120,6 +128,7 @@ public class DaAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("大众头条跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.jeve.gestures.tool.ActionCheckTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.action.ActionManager;
 
@@ -40,13 +41,12 @@ public class MyAccessibilityService extends AccessibilityService {
                 nodeInfo = event.getSource();
                 className = event.getClassName().toString();
                 pakcageName = event.getPackageName().toString();
-
             }
 
-            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
-            if (moreView != null) {
-                Logger.d("moreView = " + moreView.size());
-            }
+//            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
+//            if (moreView != null) {
+//                Logger.d("moreView = " + moreView.size());
+//            }
 
             Logger.d(pakcageName + "--" + className);
 
@@ -167,6 +167,7 @@ public class MyAccessibilityService extends AccessibilityService {
 //                    Logger.d("循环睡眠完毕");
                     if (ActionCheckTool.getInstance().getShouldAction()) {
 //                        Logger.d("正在执行工作：" + pakcageName);
+                        LocalLogTool.writeTxtToFile("进入循环：" + className);
                         String pakcageName2 = pakcageName;
                         String className2 = className;
                         AccessibilityNodeInfo nodeInfo2 = nodeInfo;

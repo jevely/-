@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
@@ -34,26 +35,32 @@ public class DongAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入东方头条 checkAction: " + className);
         switch (className) {
             case "com.songheng.eastfirst.common.view.activity.MainActivity":
                 Logger.d("东方头条主界面操作");
+                LocalLogTool.writeTxtToFile("东方头条主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.songheng.eastfirst.business.newsdetail.view.activity.NewsDetailH5Activity":
                 Logger.d("东方头条新闻界面操作");
+                LocalLogTool.writeTxtToFile("东方头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
             case "com.songheng.eastfirst.business.video.view.activity.VideoDetailActivity":
                 Logger.d("东方头条视频界面操作");
+                LocalLogTool.writeTxtToFile("东方头条视频界面操作");
                 videoAction(service);
                 break;
             case "com.oa.eastfirst.activity.WelcomeActivity":
                 Logger.d("东方头条启动界面操作");
+                LocalLogTool.writeTxtToFile("东方头条启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
                 Logger.d("东方头条其他界面操作");
+                LocalLogTool.writeTxtToFile("东方头条其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -65,7 +72,7 @@ public class DongAction extends BaseAction {
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        LocalLogTool.writeTxtToFile("东方头条主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -79,7 +86,7 @@ public class DongAction extends BaseAction {
             Thread.sleep(1000);
             ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 620);
             time += 10;
-
+            LocalLogTool.writeTxtToFile("东方头条新闻单次操作完毕");
             if (recordTime(10000)) {
                 return;
             }
@@ -92,11 +99,13 @@ public class DongAction extends BaseAction {
     private void videoAction(AccessibilityService service) throws Exception {
         Thread.sleep(30000);
         ActionTool.clickBack(service);
+        LocalLogTool.writeTxtToFile("东方头条视频单次操作完毕");
         recordTime(30000);
     }
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("东方头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -109,6 +118,7 @@ public class DongAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("东方头条跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

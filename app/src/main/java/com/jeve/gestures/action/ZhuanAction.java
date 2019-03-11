@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.jeve.gestures.content.AppContent;
 import com.jeve.gestures.content.ContentManager;
 import com.jeve.gestures.tool.ActionTool;
+import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
@@ -35,13 +36,16 @@ public class ZhuanAction extends BaseAction {
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("进入赚钱阅有钱 checkAction: " + className);
         switch (className) {
             case "com.jifen.qukan.ui.activity.HomeActivity":
                 Logger.d("赚钱阅有钱主界面操作");
+                LocalLogTool.writeTxtToFile("赚钱阅有钱主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
             case "com.jifen.qukan.module.channel.news.list.detail.NewsDetailActivity":
                 Logger.d("赚钱阅有钱新闻界面操作");
+                LocalLogTool.writeTxtToFile("赚钱阅有钱新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
 //            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
@@ -49,11 +53,13 @@ public class ZhuanAction extends BaseAction {
 //                videoAction(service);
 //                break;
             case "com.jifen.qukan.ui.activity.PermissionCheckActivity":
+                LocalLogTool.writeTxtToFile("赚钱阅有钱冷启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
                 Logger.d("赚钱阅有钱其他界面操作");
+                LocalLogTool.writeTxtToFile("赚钱阅有钱其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -61,15 +67,15 @@ public class ZhuanAction extends BaseAction {
 
     //主界面  滑动屏幕三分之一，点击
     private void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
-        //弹框检测
-        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("立即领取");
-        Logger.d("moreView = " + moreView.size());
+//        //弹框检测
+//        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("立即领取");
+//        Logger.d("moreView = " + moreView.size());
 
         Thread.sleep(2000);
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-
+        LocalLogTool.writeTxtToFile("赚钱阅有钱主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -83,7 +89,7 @@ public class ZhuanAction extends BaseAction {
             Thread.sleep(1000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             time += 4;
-
+            LocalLogTool.writeTxtToFile("赚钱阅有钱新闻单次操作完毕");
             if (recordTime(4000)) {
                 return;
             }
@@ -101,6 +107,7 @@ public class ZhuanAction extends BaseAction {
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile("赚钱阅有钱其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
     }
@@ -113,6 +120,7 @@ public class ZhuanAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("赚钱阅有钱跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;
