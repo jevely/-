@@ -15,7 +15,7 @@ public class LocalLogTool {
     /**
      * 本地记录日志
      */
-    public static void writeTxtToFile(String strcontent) {
+    public synchronized static void writeTxtToFile(String strcontent) {
 
         String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
         String fileName = "locallog.txt";

@@ -30,6 +30,8 @@ public class ActionFloatButtonWindow {
 
     private Context context;
 
+    private TextView float_tv;
+
     private ActionFloatButtonWindow() {
 
     }
@@ -71,7 +73,7 @@ public class ActionFloatButtonWindow {
 
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-        |WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
         layoutParams.gravity = Gravity.START | Gravity.CENTER;//这里相当于确定起点位置
         layoutParams.width = Utils.dip2px(context, 80);
         layoutParams.height = Utils.dip2px(context, 80);
@@ -103,7 +105,7 @@ public class ActionFloatButtonWindow {
         });
         mView.setFocusableInTouchMode(true);
 
-        final TextView float_tv = mView.findViewById(R.id.float_tv);
+        float_tv = mView.findViewById(R.id.float_tv);
         float_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
