@@ -105,6 +105,7 @@ public class DianAction extends BaseAction {
         LocalLogTool.writeTxtToFile("点点新闻其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**

@@ -11,53 +11,58 @@ import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
-/**
- * 花生头条
- * com.xcm.huasheng包名
- * com.xcm.huasheng.ui.activity.SplashActivity启动页
- * com.xcm.huasheng.ui.activity.MainActivity首页
- * <p>
- * com.xcm.huasheng.ui.activity.NewsDetailActivity新闻页面
- * com.xcm.huasheng.ui.activity.VideoDetailActivity视频页面
- */
-public class HuaAction extends BaseAction {
+import java.util.List;
 
-    public HuaAction() {
+/**
+ * 中青看点
+ * cn.youth.news包名
+ * <p>
+ * com.weishang.wxrd.activity.MainActivity主界面
+ * com.weishang.wxrd.ui.RedPacketFirstActivity主界面
+ * <p>
+ * com.weishang.wxrd.activity.WebViewActivity新闻界面
+ * <p>
+ * com.weishang.wxrd.activity.SplashActivity冷启动
+ */
+public class ZhongAction extends BaseAction {
+
+    public ZhongAction() {
         super();
     }
 
-    public HuaAction(AppContent appContent) {
+    public ZhongAction(AppContent appContent) {
         super(appContent);
     }
 
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
-        LocalLogTool.writeTxtToFile("进入花生头条 checkAction: " + className);
+        LocalLogTool.writeTxtToFile("进入中青看点 checkAction: " + className);
         switch (className) {
-            case "com.xcm.huasheng.ui.activity.MainActivity":
-                Logger.d("花生头条主界面操作");
-                LocalLogTool.writeTxtToFile("花生头条主界面操作");
+            case "com.weishang.wxrd.activity.MainActivity":
+            case "com.weishang.wxrd.ui.RedPacketFirstActivity":
+                Logger.d("中青看点主界面操作");
+                LocalLogTool.writeTxtToFile("中青看点主界面操作");
                 huiMainAction(nodeInfo, service);
                 break;
-            case "com.xcm.huasheng.ui.activity.NewsDetailActivity":
-                Logger.d("花生头条新闻界面操作");
-                LocalLogTool.writeTxtToFile("花生头条新闻界面操作");
+            case "com.weishang.wxrd.activity.WebViewActivity":
+                Logger.d("中青看点新闻界面操作");
+                LocalLogTool.writeTxtToFile("中青看点新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-            case "com.xcm.huasheng.ui.activity.VideoDetailActivity":
-                Logger.d("花生头条视频界面操作");
-                LocalLogTool.writeTxtToFile("花生头条视频界面操作");
-                videoAction(service);
-                break;
-            case "com.xcm.huasheng.ui.activity.SplashActivity":
-                Logger.d("花生头条启动界面操作");
-                LocalLogTool.writeTxtToFile("花生头条启动界面操作");
+//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
+//                Logger.d("惠头条视频界面操作");
+//                LocalLogTool.writeTxtToFile("惠头条视频界面操作");
+//                videoAction(service);
+//                break;
+            case "com.weishang.wxrd.activity.SplashActivity":
+                Logger.d("中青看点启动界面操作");
+                LocalLogTool.writeTxtToFile("中青看点启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
             default:
-                Logger.d("花生头条其他界面操作");
-                LocalLogTool.writeTxtToFile("花生头条其他界面操作");
+                Logger.d("中青看点其他界面操作");
+                LocalLogTool.writeTxtToFile("中青看点其他界面操作");
                 otherAction(service);
                 break;
         }
@@ -66,10 +71,26 @@ public class HuaAction extends BaseAction {
     //主界面  滑动屏幕三分之一，点击
     private void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("先去逛逛");
+        if (moreView != null && !moreView.isEmpty()) {
+            Logger.d("中青看点首页意外界面");
+            LocalLogTool.writeTxtToFile("中青看点首页意外界面");
+            ActionTool.clickBack(service);
+            Thread.sleep(1000);
+        }
+
+        List<AccessibilityNodeInfo> moreView2 = nodeInfo.findAccessibilityNodeInfosByText("残忍拒绝");
+        if (moreView2 != null && !moreView2.isEmpty()) {
+            Logger.d("中青看点首页意外界面2");
+            LocalLogTool.writeTxtToFile("中青看点首页意外界面2");
+            ActionTool.clickBack(service);
+            Thread.sleep(1000);
+        }
+
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
         ActionTool.clickScreen(nodeInfo, service, 540, 960);
-        LocalLogTool.writeTxtToFile("花生头条主界面单次操作完毕");
+        LocalLogTool.writeTxtToFile("中青看点主界面单次操作完毕");
         recordTime(3000);
     }
 
@@ -77,16 +98,17 @@ public class HuaAction extends BaseAction {
     private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
-        while (time < 33) {
+        while (time < 120) {
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
             time += 6;
-            LocalLogTool.writeTxtToFile("花生头条新闻单次操作完毕");
+            LocalLogTool.writeTxtToFile("中青看点新闻单次操作完毕");
             if (recordTime(6000)) {
                 return;
             }
+
         }
         Thread.sleep(2000);
         ActionTool.clickBack(service);
@@ -94,15 +116,15 @@ public class HuaAction extends BaseAction {
 
     //视频界面
     private void videoAction(AccessibilityService service) throws Exception {
-        Thread.sleep(31000);
+        Thread.sleep(30000);
         ActionTool.clickBack(service);
-        LocalLogTool.writeTxtToFile("花生头条视频单次操作完毕");
-        recordTime(31000);
+        LocalLogTool.writeTxtToFile("中青看点视频单次操作完毕");
+        recordTime(30000);
     }
 
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
-        LocalLogTool.writeTxtToFile("花生头条其他界面单次操作完毕");
+        LocalLogTool.writeTxtToFile("中青看点其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
         recordTime(ActionManager.getInstance().clickBack);
@@ -116,7 +138,7 @@ public class HuaAction extends BaseAction {
         ContentManager.getInstance().changeContent(getAppContent());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
-            LocalLogTool.writeTxtToFile("花生头条跳转:" + getChangeAppPackageName());
+            LocalLogTool.writeTxtToFile("中青看点跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(ActionManager.getInstance().appChange);
             return true;

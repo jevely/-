@@ -74,6 +74,7 @@ public class DaAction extends BaseAction {
         List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("先去逛逛");
         if (moreView != null && !moreView.isEmpty()) {
             Logger.d("大众头条首页意外界面");
+            LocalLogTool.writeTxtToFile("大众头条首页意外界面");
             ActionTool.clickBack(service);
             Thread.sleep(1000);
         }
@@ -118,6 +119,7 @@ public class DaAction extends BaseAction {
         LocalLogTool.writeTxtToFile("大众头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**

@@ -108,6 +108,7 @@ public class DongAction extends BaseAction {
         LocalLogTool.writeTxtToFile("东方头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**

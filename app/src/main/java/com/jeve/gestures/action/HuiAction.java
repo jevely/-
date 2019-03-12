@@ -117,6 +117,7 @@ public class HuiAction extends BaseAction {
         LocalLogTool.writeTxtToFile("惠头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     //升级情况处理
@@ -128,6 +129,7 @@ public class HuiAction extends BaseAction {
             moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
             LocalLogTool.writeTxtToFile("惠头条升级情况界面单次操作完毕");
         }
+        recordTime(2000);
     }
 
     //广告下载情况处理
@@ -139,6 +141,7 @@ public class HuiAction extends BaseAction {
             moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
             LocalLogTool.writeTxtToFile("惠头条广告下载界面单次操作完毕");
         }
+        recordTime(2000);
     }
 
     /**

@@ -110,6 +110,7 @@ public class ZhuanAction extends BaseAction {
         LocalLogTool.writeTxtToFile("赚钱阅有钱其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**

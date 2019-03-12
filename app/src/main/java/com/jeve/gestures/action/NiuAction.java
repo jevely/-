@@ -107,6 +107,7 @@ public class NiuAction extends BaseAction {
         LocalLogTool.writeTxtToFile("牛牛头条其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**
