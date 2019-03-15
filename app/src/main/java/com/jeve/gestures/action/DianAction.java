@@ -65,7 +65,9 @@ public class DianAction extends BaseAction {
     }
 
     //主界面  滑动屏幕三分之一，点击
-    private void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+    @Override
+    public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        super.huiMainAction(nodeInfo, service);
         Thread.sleep(2000);
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
@@ -75,7 +77,9 @@ public class DianAction extends BaseAction {
     }
 
     //新闻界面
-    private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+    @Override
+    public void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        super.newsAction(nodeInfo, service);
         Thread.sleep(2000);
         int time = 0;
         while (time < 20) {
@@ -93,34 +97,4 @@ public class DianAction extends BaseAction {
         ActionTool.clickBack(service);
     }
 
-    //视频界面
-    private void videoAction(AccessibilityService service) throws Exception {
-        Thread.sleep(20000);
-        ActionTool.clickBack(service);
-        recordTime(20000);
-    }
-
-    //其他界面 点击返回，退出至主界面
-    private void otherAction(AccessibilityService service) throws Exception {
-        LocalLogTool.writeTxtToFile("点点新闻其他界面单次操作完毕");
-        Thread.sleep(ActionManager.getInstance().clickBack);
-        ActionTool.clickBack(service);
-        recordTime(ActionManager.getInstance().clickBack);
-    }
-
-    /**
-     * 记录时间
-     */
-    private boolean recordTime(long time) throws Exception {
-        setActionTime(getActionTime() + time);
-        ContentManager.getInstance().changeContent(getAppContent());
-        if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
-                && ActionManager.getInstance().hasNext(getPakcageName())) {
-            LocalLogTool.writeTxtToFile("点点新闻跳转:" + getChangeAppPackageName());
-            Utils.startApp(getChangeAppPackageName());
-            Thread.sleep(ActionManager.getInstance().appChange);
-            return true;
-        }
-        return false;
-    }
 }

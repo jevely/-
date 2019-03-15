@@ -58,4 +58,11 @@ public class ActionTool {
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
+    /**
+     * 弹框点击关闭
+     */
+    public static void dialogClickCancel(AccessibilityNodeInfo nodeInfo, AccessibilityService service) {
+
+    }
+
 }

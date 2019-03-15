@@ -31,7 +31,7 @@ public class ShuaAction extends BaseAction {
             case "com.jm.video.ui.main.MainActivity":
                 Logger.d("刷宝主界面操作");
                 LocalLogTool.writeTxtToFile("刷宝主界面操作");
-                shuaMainAction(nodeInfo, service);
+                huiMainAction(nodeInfo, service);
                 break;
             case "com.jm.video.ui.main.SplashActivity":
             case "com.jm.video.ui.main.AdsActivity":
@@ -48,25 +48,22 @@ public class ShuaAction extends BaseAction {
     }
 
     //刷宝主界面 滑动 点击 等待
-    private void shuaMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+    @Override
+    public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        super.huiMainAction(nodeInfo, service);
         Thread.sleep(10000);
         ActionTool.scroll(nodeInfo, service, 540, 350, 540, 1650);
         setActionTime(getActionTime() + 10000);
         ContentManager.getInstance().changeContent(getAppContent());
         LocalLogTool.writeTxtToFile("刷宝主界面单次操作完毕");
+
         //一个小时后跳转新闻
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
+            LocalLogTool.writeTxtToFile("刷宝跳转:" + getChangeAppPackageName());
             Utils.startApp(getChangeAppPackageName());
             Thread.sleep(15000);
         }
-    }
-
-    //其他界面 点击返回，退出至主界面
-    private void otherAction(AccessibilityService service) throws Exception {
-        LocalLogTool.writeTxtToFile("刷宝其他界面单次操作完毕");
-        Thread.sleep(ActionManager.getInstance().clickBack);
-        ActionTool.clickBack(service);
     }
 
 }
