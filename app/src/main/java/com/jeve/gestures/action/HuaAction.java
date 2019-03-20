@@ -11,6 +11,8 @@ import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
+import java.util.List;
+
 /**
  * 花生头条
  * com.xcm.huasheng包名
@@ -58,7 +60,7 @@ public class HuaAction extends BaseAction {
             default:
                 Logger.d("花生头条其他界面操作");
                 LocalLogTool.writeTxtToFile("花生头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }
@@ -66,7 +68,8 @@ public class HuaAction extends BaseAction {
     //主界面  滑动屏幕三分之一，点击
     @Override
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
-        super.huiMainAction(nodeInfo, service);
+//        super.huiMainAction(nodeInfo, service);
+        List<AccessibilityNodeInfo> byText = nodeInfo.findAccessibilityNodeInfosByText("升级领取福利");
         Thread.sleep(2000);
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);

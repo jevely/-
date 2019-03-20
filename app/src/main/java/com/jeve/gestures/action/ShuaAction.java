@@ -42,7 +42,7 @@ public class ShuaAction extends BaseAction {
             default:
                 Logger.d("刷宝其他界面操作");
                 LocalLogTool.writeTxtToFile("刷宝其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }

@@ -69,7 +69,7 @@ public class HuiAction extends BaseAction {
             default:
                 Logger.d("惠头条其他界面操作");
                 LocalLogTool.writeTxtToFile("惠头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }

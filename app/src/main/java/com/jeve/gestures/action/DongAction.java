@@ -61,7 +61,7 @@ public class DongAction extends BaseAction {
             default:
                 Logger.d("东方头条其他界面操作");
                 LocalLogTool.writeTxtToFile("东方头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }
@@ -84,17 +84,19 @@ public class DongAction extends BaseAction {
         super.newsAction(nodeInfo, service);
         Thread.sleep(2000);
         int time = 0;
-        while (time < 60) {
-            Thread.sleep(12000);
+        while (time < 54) {
+//            Thread.sleep(12000);
+            Thread.sleep(8000);
             ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 620);
             Thread.sleep(1000);
             ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 620);
-            time += 10;
-            LocalLogTool.writeTxtToFile("东方头条新闻单次操作完毕");
-            if (recordTime(10000)) {
+            time += 9;
+
+            if (recordTime(90000)) {
                 return;
             }
         }
+        LocalLogTool.writeTxtToFile("东方头条新闻单次操作完毕");
         Thread.sleep(2000);
         ActionTool.clickBack(service);
     }

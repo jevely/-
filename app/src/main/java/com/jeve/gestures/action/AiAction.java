@@ -13,9 +13,8 @@ import com.jeve.gestures.tool.Utils;
 /**
  * 爱头条
  * com.aitoutiao.newsapp包名
- *
+ * <p>
  * com.news.hotheadlines.framwork.CoreActivity主页
- *
  */
 public class AiAction extends BaseAction {
 
@@ -49,13 +48,14 @@ public class AiAction extends BaseAction {
                 break;
             default:
                 Logger.d("爱头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }
 
     //主界面  滑动屏幕三分之一，点击
-    private void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+    @Override
+    public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);
@@ -65,7 +65,8 @@ public class AiAction extends BaseAction {
     }
 
     //新闻界面
-    private void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+    @Override
+    public void newsAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         Thread.sleep(2000);
         int time = 0;
         while (time < 120) {
@@ -85,30 +86,10 @@ public class AiAction extends BaseAction {
     }
 
     //视频界面
-    private void videoAction(AccessibilityService service) throws Exception {
+    @Override
+    public void videoAction(AccessibilityService service) throws Exception {
         Thread.sleep(30000);
         ActionTool.clickBack(service);
         recordTime(30000);
-    }
-
-    //其他界面 点击返回，退出至主界面
-    private void otherAction(AccessibilityService service) throws Exception {
-        Thread.sleep(ActionManager.getInstance().clickBack);
-        ActionTool.clickBack(service);
-    }
-
-    /**
-     * 记录时间
-     */
-    private boolean recordTime(long time) throws Exception {
-        setActionTime(getActionTime() + time);
-        ContentManager.getInstance().changeContent(getAppContent());
-        if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
-                && ActionManager.getInstance().hasNext(getPakcageName())) {
-            Utils.startApp(getChangeAppPackageName());
-            Thread.sleep(15000);
-            return true;
-        }
-        return false;
     }
 }

@@ -60,7 +60,7 @@ public class ZhuanAction extends BaseAction {
             default:
                 Logger.d("赚钱阅有钱其他界面操作");
                 LocalLogTool.writeTxtToFile("赚钱阅有钱其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }

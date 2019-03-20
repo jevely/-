@@ -1,6 +1,7 @@
 package com.jeve.gestures.action;
 
 import android.accessibilityservice.AccessibilityService;
+import android.graphics.Point;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -19,6 +20,9 @@ public abstract class BaseAction {
     private long changeAppTime;
     private String changeAppPackageName;
     private long actionTime;
+
+    private float screenWidth;
+    private float screenHeight;
 
     private AppContent appContent;
 
@@ -58,6 +62,22 @@ public abstract class BaseAction {
         return appContent;
     }
 
+    public float getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(float screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public float getScreenHeight() {
+        return screenHeight;
+    }
+
+    public void setScreenHeight(float screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
     public BaseAction() {
 
     }
@@ -68,6 +88,10 @@ public abstract class BaseAction {
         changeAppPackageName = appContent.getChangePackageName();
         changeAppTime = appContent.getChangeTime();
         actionTime = appContent.getActionTime();
+
+        Point point = Utils.getScreen();
+        screenWidth = point.x;
+        screenHeight = point.y;
     }
 
     public void setAppContent(AppContent appContent) {
@@ -82,7 +106,32 @@ public abstract class BaseAction {
 
     //主界面
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        //升级弹框
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
+        if (moreView != null && !moreView.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "首页-以后再说-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "首页-以后再说-意外界面");
+            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
 
+        //升级弹框
+        List<AccessibilityNodeInfo> moreView2 = nodeInfo.findAccessibilityNodeInfosByText("升级领取福利");
+        if (moreView2 != null && !moreView2.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "首页-升级领取福利-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "首页-升级领取福利-意外界面");
+            moreView2.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
+
+        //领取奖励
+        List<AccessibilityNodeInfo> moreView3 = nodeInfo.findAccessibilityNodeInfosByText("领取奖励");
+        if (moreView3 != null && !moreView3.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "首页-领取奖励-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "首页-领取奖励-意外界面");
+            moreView3.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
     }
 
     //新闻界面
@@ -96,7 +145,35 @@ public abstract class BaseAction {
     }
 
     //其他界面 点击返回，退出至主界面
-    public void otherAction(AccessibilityService service) throws Exception {
+    public void otherAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+
+        //异常判断1
+        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("知道了");
+        if (moreView != null && !moreView.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "其他页面-知道了-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他页面-知道了-意外界面");
+            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
+
+        //异常判断2
+        List<AccessibilityNodeInfo> moreView2 = nodeInfo.findAccessibilityNodeInfosByText("取消");
+        if (moreView2 != null && !moreView2.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "其他页面-取消-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他页面-取消-意外界面");
+            moreView2.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
+
+        //异常判断3
+        List<AccessibilityNodeInfo> moreView3 = nodeInfo.findAccessibilityNodeInfosByText("领取奖励");
+        if (moreView3 != null && !moreView3.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "其他页面-领取奖励-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他页面-领取奖励-意外界面");
+            moreView3.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
+
         LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);

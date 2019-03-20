@@ -62,7 +62,7 @@ public class KanAction extends BaseAction {
             default:
                 Logger.d("聚看点其他界面操作");
                 LocalLogTool.writeTxtToFile("聚看点其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }

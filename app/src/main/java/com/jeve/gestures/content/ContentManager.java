@@ -160,7 +160,6 @@ public class ContentManager {
         huiContent.setOpenSelfPackageName("com.cashtoutiao");
         huiContent.setChangePackageName("com.xiangzi.jukandian");
         huiContent.setChangeTime(changeTime);
-//        huiContent.setChangeTime(0);
         huiContent.setAppName("惠头条");
         //聚看点
         AppContent juContent = new AppContent();
@@ -207,14 +206,15 @@ public class ContentManager {
         AppContent daContent = new AppContent();
         daContent.setPackageName("com.build.dazhong");
         daContent.setOpenSelfPackageName("com.build.dazhong");
-        huaContent.setChangePackageName("cn.youth.news");
-        huaContent.setChangeTime(changeTime);
+        daContent.setChangePackageName("cn.youth.news");
+        daContent.setChangeTime(changeTime);
         daContent.setAppName("大众头条");
         //中青看点
         AppContent zhongContent = new AppContent();
         zhongContent.setPackageName("cn.youth.news");
         zhongContent.setOpenSelfPackageName("cn.youth.news");
-        zhongContent.setChangeTime(0);
+        huaContent.setChangePackageName("com.xcm.huasheng");
+        zhongContent.setChangeTime(changeTime);
         zhongContent.setAppName("中青看点");
 
         addContent(shuaContent);

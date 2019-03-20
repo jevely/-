@@ -34,13 +34,38 @@ public class MyAccessibilityService extends AccessibilityService {
                 return;
             }
 
+            //异常判断1
+            List<AccessibilityNodeInfo> moreView = event.getSource().findAccessibilityNodeInfosByText("知道了");
+            if (moreView != null && !moreView.isEmpty()) {
+                Logger.d("onAccessibilityEvent-知道了-意外界面");
+                LocalLogTool.writeTxtToFile("onAccessibilityEvent-知道了-意外界面");
+            }
+
+            //异常判断2
+            List<AccessibilityNodeInfo> moreView2 = event.getSource().findAccessibilityNodeInfosByText("取消");
+            if (moreView2 != null && !moreView2.isEmpty()) {
+                Logger.d("onAccessibilityEvent-取消-意外界面");
+                LocalLogTool.writeTxtToFile("onAccessibilityEvent-取消-意外界面");
+            }
+
+            //异常判断3
+            List<AccessibilityNodeInfo> moreView3 = event.getSource().findAccessibilityNodeInfosByText("领取奖励");
+            if (moreView3 != null && !moreView3.isEmpty()) {
+                Logger.d("onAccessibilityEvent-领取奖励-意外界面");
+                LocalLogTool.writeTxtToFile("onAccessibilityEvent-领取奖励-意外界面");
+            }
+
             //处理问题界面
             if (!event.getClassName().toString().contains("android.widget.FrameLayout")
                     && !event.getClassName().toString().contains("com.bytedance.sdk.openadsdk.activity.TTDelegateActivity")
-                    && !event.getClassName().toString().contains("android.app.Dialog")) {
+                    && !event.getClassName().toString().contains("android.app.Dialog")
+                    && !event.getClassName().toString().contains("android.widget")) {
                 nodeInfo = event.getSource();
                 className = event.getClassName().toString();
                 pakcageName = event.getPackageName().toString();
+            } else {
+                Logger.d("<<<过滤页面:" + event.getClassName().toString());
+                LocalLogTool.writeTxtToFile("<<<过滤页面:" + event.getClassName().toString());
             }
 
 //            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");

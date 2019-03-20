@@ -8,12 +8,17 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import com.jeve.gestures.BuildConfig;
 import com.jeve.gestures.MyApplication;
@@ -143,5 +148,15 @@ public class Utils {
         }
     }
 
+    /**
+     * 获取屏幕高宽
+     */
+    public static Point getScreen() {
+        Resources resources = MyApplication.getContext().getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        return new Point(width, height);
+    }
 
 }

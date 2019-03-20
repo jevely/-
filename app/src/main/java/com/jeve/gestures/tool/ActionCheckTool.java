@@ -1,5 +1,9 @@
 package com.jeve.gestures.tool;
 
+import android.os.Environment;
+
+import java.io.File;
+
 public class ActionCheckTool {
 
     private ActionCheckTool() {
@@ -17,6 +21,21 @@ public class ActionCheckTool {
 
     public boolean setShouldAction() {
         shouldAction = !shouldAction;
+
+        try {
+            if (shouldAction) {
+                //启动  删除日志
+                String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
+                String fileName = "locallog.txt";
+                File file = new File(filePath + fileName);
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return shouldAction;
     }
 

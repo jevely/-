@@ -62,7 +62,7 @@ public class DaAction extends BaseAction {
             default:
                 LocalLogTool.writeTxtToFile("大众头条其他界面操作");
                 Logger.d("大众头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }

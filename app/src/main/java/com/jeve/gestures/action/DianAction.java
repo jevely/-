@@ -59,7 +59,7 @@ public class DianAction extends BaseAction {
             default:
                 LocalLogTool.writeTxtToFile("点点新闻其他界面操作");
                 Logger.d("点点新闻其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }

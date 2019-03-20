@@ -58,7 +58,7 @@ public class NiuAction extends BaseAction {
             default:
                 Logger.d("牛牛头条其他界面操作");
                 LocalLogTool.writeTxtToFile("牛牛头条其他界面操作");
-                otherAction(service);
+                otherAction(nodeInfo,service);
                 break;
         }
     }
