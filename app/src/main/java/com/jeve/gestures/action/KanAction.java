@@ -59,10 +59,15 @@ public class KanAction extends BaseAction {
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
                 break;
+            case "com.xiangzinet.jkd.JKDActivity":
+                Logger.d("聚看点网页广告界面");
+                LocalLogTool.writeTxtToFile("聚看点网页广告界面");
+                clickLeftTopToClose(nodeInfo, service);
+                break;
             default:
                 Logger.d("聚看点其他界面操作");
                 LocalLogTool.writeTxtToFile("聚看点其他界面操作");
-                otherAction(nodeInfo,service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }

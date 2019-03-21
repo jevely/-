@@ -174,6 +174,15 @@ public abstract class BaseAction {
             Thread.sleep(1000);
         }
 
+        //异常判断4
+        List<AccessibilityNodeInfo> moreView4 = nodeInfo.findAccessibilityNodeInfosByText("领取奖励");
+        if (moreView3 != null && !moreView3.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "其他页面-领取奖励-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他页面-领取奖励-意外界面");
+            moreView3.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            Thread.sleep(1000);
+        }
+
         LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "其他界面单次操作完毕");
         Thread.sleep(ActionManager.getInstance().clickBack);
         ActionTool.clickBack(service);
@@ -188,6 +197,14 @@ public abstract class BaseAction {
     //广告下载情况处理
     public void adDownloadAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
 
+    }
+
+    //点击左上角关闭返回按钮页面
+    public void clickLeftTopToClose(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
+        LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "点击左上角关闭返回按钮页面操作完毕");
+        Thread.sleep(ActionManager.getInstance().clickBack);
+        ActionTool.clickScreen(nodeInfo, service, (int) (getScreenWidth() / 53), (int) (getScreenWidth() / 10.8f));
+        recordTime(ActionManager.getInstance().clickBack);
     }
 
     /**
