@@ -145,7 +145,7 @@ public class ContentManager {
      */
     private void initData() {
 
-        long changeTime = 1000 * 60 * 20;
+        long changeTime = 1000 * 60 * 60;
 
         //刷宝
         AppContent shuaContent = new AppContent();
@@ -165,16 +165,17 @@ public class ContentManager {
         AppContent juContent = new AppContent();
         juContent.setPackageName("com.xiangzi.jukandian");
         juContent.setOpenSelfPackageName("com.xiangzi.jukandian");
-        juContent.setChangePackageName("com.yingliang.clicknews");
+//        juContent.setChangePackageName("com.yingliang.clicknews");
+        juContent.setChangePackageName("com.songheng.eastnews");
         juContent.setChangeTime(changeTime);
         juContent.setAppName("聚看点");
-        //点点新闻
-        AppContent dianContent = new AppContent();
-        dianContent.setPackageName("com.yingliang.clicknews");
-        dianContent.setOpenSelfPackageName("com.yingliang.clicknews");
-        dianContent.setChangePackageName("com.songheng.eastnews");
-        dianContent.setChangeTime(changeTime);
-        dianContent.setAppName("点点新闻");
+//        //点点新闻
+//        AppContent dianContent = new AppContent();
+//        dianContent.setPackageName("com.yingliang.clicknews");
+//        dianContent.setOpenSelfPackageName("com.yingliang.clicknews");
+//        dianContent.setChangePackageName("com.songheng.eastnews");
+//        dianContent.setChangeTime(changeTime);
+//        dianContent.setAppName("点点新闻");
         //赚钱阅有钱
 //        AppContent zhuanContent = new AppContent();
 //        zhuanContent.setPackageName("com.yj.yueyouqian");
@@ -220,7 +221,7 @@ public class ContentManager {
         addContent(shuaContent);
         addContent(huiContent);
         addContent(juContent);
-        addContent(dianContent);
+//        addContent(dianContent);
 //        addContent(zhuanContent);
         addContent(dongContent);
         addContent(niuContent);
@@ -231,7 +232,7 @@ public class ContentManager {
         actionMap.put(shuaContent.getPackageName(), new ShuaAction(shuaContent));
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
         actionMap.put(juContent.getPackageName(), new KanAction(juContent));
-        actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
+//        actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
 //        actionMap.put(zhuanContent.getPackageName(), new ZhuanAction(zhuanContent));
         actionMap.put(dongContent.getPackageName(), new DongAction(dongContent));
         actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
