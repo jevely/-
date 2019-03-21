@@ -24,13 +24,15 @@ public class ActionCheckTool {
 
         try {
             if (shouldAction) {
-                //启动  删除日志
-                String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
-                String fileName = "locallog.txt";
-                File file = new File(filePath + fileName);
-                if (file.exists()) {
-                    file.delete();
-                }
+                //启动  修改日志名字
+//                String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
+//                String fileName = "locallog.txt";
+//                File file = new File(filePath + fileName);
+//                if (file.exists()) {
+//                    file.delete();
+//                }
+
+                LocalLogTool.setFileName("locallog_" + LocalLogTool.getTime() + ".txt");
             }
         } catch (Exception e) {
             e.printStackTrace();

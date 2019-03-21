@@ -34,6 +34,11 @@ public class MyAccessibilityService extends AccessibilityService {
                 return;
             }
 
+            if (event.getSource() == null) {
+                LocalLogTool.writeTxtToFile("onAccessibilityEvent获取信息为空--退出");
+                return;
+            }
+
             //异常判断1
             List<AccessibilityNodeInfo> moreView = event.getSource().findAccessibilityNodeInfosByText("知道了");
             if (moreView != null && !moreView.isEmpty()) {
@@ -73,7 +78,7 @@ public class MyAccessibilityService extends AccessibilityService {
 //                Logger.d("moreView = " + moreView.size());
 //            }
 
-            Logger.d(pakcageName + "--" + className);
+            Logger.d("辅助功能:" + pakcageName + "--" + className);
 
             if (!startThr2) {
                 startThr2 = true;

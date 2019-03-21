@@ -46,7 +46,7 @@ public class ActionManager {
             }
         }
 
-        //都不是，可能跳转到其他APP，点击返回
+        //都不是，可能跳转到其他APP，双击返回
         Logger.d("跳转到其他APP:" + className);
         otherAction(service);
 
@@ -55,6 +55,8 @@ public class ActionManager {
     //其他界面 点击返回，退出至主界面
     private void otherAction(AccessibilityService service) throws Exception {
         Thread.sleep(clickBack);
+        ActionTool.clickBack(service);
+        Thread.sleep(400);
         ActionTool.clickBack(service);
     }
 

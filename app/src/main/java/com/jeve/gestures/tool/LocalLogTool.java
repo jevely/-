@@ -12,13 +12,22 @@ import java.util.Date;
  */
 public class LocalLogTool {
 
+    private static String fileName = "locallog.txt";
+
+    public static String getFileName() {
+        return fileName;
+    }
+
+    public static void setFileName(String fileName) {
+        LocalLogTool.fileName = fileName;
+    }
+
     /**
      * 本地记录日志
      */
     public synchronized static void writeTxtToFile(String strcontent) {
 
         String filePath = Environment.getExternalStorageDirectory().getPath() + "/MakeMoney/";
-        String fileName = "locallog.txt";
 
         makeFilePath(filePath, fileName);
 
@@ -75,7 +84,7 @@ public class LocalLogTool {
         }
     }
 
-    private static String getTime() {
+    public static String getTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);

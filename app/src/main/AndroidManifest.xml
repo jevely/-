@@ -51,7 +51,8 @@
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.jeve.gestures.BmobContentProvider"></provider>
+            android:authorities="com.jeve.gestures.BmobContentProvider" />
+
     </application>
 
 </manifest>
