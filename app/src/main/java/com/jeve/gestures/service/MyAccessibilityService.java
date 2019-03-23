@@ -73,11 +73,6 @@ public class MyAccessibilityService extends AccessibilityService {
                 LocalLogTool.writeTxtToFile("<<<过滤页面:" + event.getClassName().toString());
             }
 
-//            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("以后再说");
-//            if (moreView != null) {
-//                Logger.d("moreView = " + moreView.size());
-//            }
-
             Logger.d("辅助功能:" + pakcageName + "--" + className);
 
             if (!startThr2) {

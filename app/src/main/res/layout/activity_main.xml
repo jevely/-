@@ -1,27 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/bt"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="申请权限" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/bt02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bt"
-        android:text="start" />
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请权限" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/bt02" />
+        <Button
+            android:id="@+id/bt02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt"
+            android:text="start" />
+
+        <LinearLayout
+            android:id="@+id/time_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt02"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/time_edit"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="请输入操作软件分钟数"
+                android:inputType="number"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/time_sure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="确定" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reinit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_ll"
+            android:text="重置配置" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/reinit" />
+    </RelativeLayout>
 
     <!--验证码输入-->
     <RelativeLayout
@@ -72,4 +106,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

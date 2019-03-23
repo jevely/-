@@ -64,15 +64,23 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
             checkbox.setChecked(content.isCheck());
 
-            checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            checkbox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    content.setCheck(isChecked);
+                public void onClick(View v) {
+                    content.setIsCheck(!content.getIsCheck());
+                    checkbox.setChecked(content.isCheck());
                     ContentManager.getInstance().changeContent(content);
                     if (clickCallBack != null)
                         clickCallBack.clickCallBack(content);
                 }
             });
+
+//            checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                }
+//            });
         }
     }
 

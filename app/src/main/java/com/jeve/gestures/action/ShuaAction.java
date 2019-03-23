@@ -42,7 +42,7 @@ public class ShuaAction extends BaseAction {
             default:
                 Logger.d("刷宝其他界面操作");
                 LocalLogTool.writeTxtToFile("刷宝其他界面操作");
-                otherAction(nodeInfo,service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }
@@ -53,17 +53,8 @@ public class ShuaAction extends BaseAction {
         super.huiMainAction(nodeInfo, service);
         Thread.sleep(10000);
         ActionTool.scroll(nodeInfo, service, 540, 350, 540, 1650);
-        setActionTime(getActionTime() + 10000);
-        ContentManager.getInstance().changeContent(getAppContent());
         LocalLogTool.writeTxtToFile("刷宝主界面单次操作完毕");
-
-        //一个小时后跳转新闻
-        if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
-                && ActionManager.getInstance().hasNext(getPakcageName())) {
-            LocalLogTool.writeTxtToFile("刷宝跳转:" + getChangeAppPackageName());
-            Utils.startApp(getChangeAppPackageName());
-            Thread.sleep(15000);
-        }
+        recordTime(10000);
     }
 
 }

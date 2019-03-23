@@ -212,7 +212,9 @@ public abstract class BaseAction {
      */
     public boolean recordTime(long time) throws Exception {
         setActionTime(getActionTime() + time);
+        Logger.d(getAppContent().getAppName() + " getActionTime = " + getActionTime());
         ContentManager.getInstance().changeContent(getAppContent());
+        Logger.d(getAppContent().getAppName() + "getChangeAppTime = " + getChangeAppTime() + "-- getActionTime = " + getActionTime() + "-- getChangeAppPackageName = " + getChangeAppPackageName());
         if (getChangeAppTime() != 0 && getActionTime() > getChangeAppTime() && !TextUtils.isEmpty(getChangeAppPackageName())
                 && ActionManager.getInstance().hasNext(getPakcageName())) {
             LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "跳转:" + getChangeAppPackageName());
