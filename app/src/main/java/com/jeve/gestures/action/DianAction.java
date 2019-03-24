@@ -35,6 +35,7 @@ public class DianAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入点点新闻 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.yingliang.clicknews.MainActivity":
                 Logger.d("点点新闻主界面操作");
@@ -59,7 +60,7 @@ public class DianAction extends BaseAction {
             default:
                 LocalLogTool.writeTxtToFile("点点新闻其他界面操作");
                 Logger.d("点点新闻其他界面操作");
-                otherAction(nodeInfo,service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }
@@ -69,9 +70,9 @@ public class DianAction extends BaseAction {
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         super.huiMainAction(nodeInfo, service);
         Thread.sleep(2000);
-        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
+        ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.185f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3.69f));
         Thread.sleep(1000);
-        ActionTool.clickScreen(nodeInfo, service, 540, 960);
+        ActionTool.clickScreen(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2));
         LocalLogTool.writeTxtToFile("点点新闻主界面单次操作完毕");
         recordTime(3000);
     }
@@ -83,9 +84,9 @@ public class DianAction extends BaseAction {
         Thread.sleep(2000);
         int time = 0;
         while (time < 20) {
-            ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 520);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.185f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3.69f));
             Thread.sleep(5000);
-            ActionTool.scroll(nodeInfo, service, 540, 1620, 540, 520);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.185f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3.69f));
             Thread.sleep(5000);
             time += 10;
             LocalLogTool.writeTxtToFile("点点新闻新闻单次操作完毕");

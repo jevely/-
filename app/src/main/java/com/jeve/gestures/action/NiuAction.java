@@ -34,6 +34,7 @@ public class NiuAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入牛牛头条 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.huolea.bull.page.other.activity.MainActivity":
                 Logger.d("牛牛头条主界面操作");
@@ -94,7 +95,6 @@ public class NiuAction extends BaseAction {
         Thread.sleep(3000);
 //        }
         LocalLogTool.writeTxtToFile("牛牛头条新闻单次操作完毕");
-        Thread.sleep(2000);
         ActionTool.clickBack(service);
         recordTime(15000);
     }

@@ -37,6 +37,7 @@ public class ZhuanAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入赚钱阅有钱 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.jifen.qukan.ui.activity.HomeActivity":
                 Logger.d("赚钱阅有钱主界面操作");

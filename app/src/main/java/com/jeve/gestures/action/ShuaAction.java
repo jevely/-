@@ -27,6 +27,7 @@ public class ShuaAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入刷宝 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.jm.video.ui.main.MainActivity":
                 Logger.d("刷宝主界面操作");

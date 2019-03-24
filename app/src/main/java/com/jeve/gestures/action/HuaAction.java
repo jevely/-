@@ -35,6 +35,7 @@ public class HuaAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入花生头条 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.xcm.huasheng.ui.activity.MainActivity":
                 Logger.d("花生头条主界面操作");

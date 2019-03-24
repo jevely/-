@@ -33,6 +33,7 @@ public class HuiAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入惠头条 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.cashtoutiao.account.ui.main.MainTabActivity":
                 Logger.d("惠头条主界面操作");

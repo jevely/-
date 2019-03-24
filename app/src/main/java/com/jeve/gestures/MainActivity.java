@@ -94,9 +94,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 BmobManager.getInstance().checkCode(code);
                 break;
             case R.id.time_sure:
-//                //收起键盘
-//                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 //时间确定
                 List<AppContent> timeList = ActionManager.getInstance().getAppList();
                 if (timeList.isEmpty()) {

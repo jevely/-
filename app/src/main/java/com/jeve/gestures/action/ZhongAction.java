@@ -37,6 +37,7 @@ public class ZhongAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入中青看点 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.weishang.wxrd.activity.MainActivity":
             case "com.weishang.wxrd.ui.RedPacketFirstActivity":
@@ -115,9 +116,9 @@ public class ZhongAction extends BaseAction {
         int time = 0;
         while (time < 120) {
             Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f));
             Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f));
             time += 6;
             if (recordTime(6000)) {
                 return;

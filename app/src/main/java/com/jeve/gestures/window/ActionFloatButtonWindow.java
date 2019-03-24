@@ -60,16 +60,6 @@ public class ActionFloatButtonWindow {
         //布局参数
         layoutParams = new WindowManager.LayoutParams(Utils.dip2px(context, 80),
                 Utils.dip2px(context, 80));
-//        layoutParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;//强制竖屏
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            layoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View
-//                    .SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN | View
-//                    .SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//            layoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View
-//                    .SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
-//        }
 
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE

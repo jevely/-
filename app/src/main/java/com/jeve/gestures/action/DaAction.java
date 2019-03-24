@@ -38,6 +38,7 @@ public class DaAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入大众头条 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.build.dazhong.reconsitution.home.activity.MainActivity_":
                 Logger.d("大众头条主界面操作");
@@ -49,10 +50,11 @@ public class DaAction extends BaseAction {
                 LocalLogTool.writeTxtToFile("大众头条新闻界面操作");
                 newsAction(nodeInfo, service);
                 break;
-//            case "com.cashtoutiao.alivideodetail.AliVideoDetailActivity":
-//                Logger.d("大众头条视频界面操作");
-//                videoAction(service);
-//                break;
+            case "com.build.dazhong.reconsitution.video.activity.VideoDetailActivity_":
+                Logger.d("大众头条视频界面操作");
+                LocalLogTool.writeTxtToFile("大众头条视频界面操作");
+                videoAction(service);
+                break;
             case "com.build.dazhong.reconsitution.splash.SplashActivity":
                 LocalLogTool.writeTxtToFile("大众头条启动界面操作");
                 Logger.d("大众头条启动界面操作");
@@ -72,6 +74,7 @@ public class DaAction extends BaseAction {
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         super.huiMainAction(nodeInfo, service);
         Thread.sleep(2000);
+
         List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("先去逛逛");
         if (moreView != null && !moreView.isEmpty()) {
             Logger.d("大众头条首页意外界面");
@@ -79,10 +82,19 @@ public class DaAction extends BaseAction {
             ActionTool.clickBack(service);
             Thread.sleep(1000);
         }
+
+        List<AccessibilityNodeInfo> moreView2 = nodeInfo.findAccessibilityNodeInfosByText("后面还有");
+        if (moreView2 != null && !moreView2.isEmpty()) {
+            Logger.d(getAppContent().getAppName() + "大众头条首页-后面还有-意外界面");
+            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "大众头条首页-后面还有-意外界面");
+            ActionTool.clickBack(service);
+            Thread.sleep(1000);
+        }
+
         Logger.d("大众头条正常界面");
-        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
+        ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3));
         Thread.sleep(1000);
-        ActionTool.clickScreen(nodeInfo, service, 540, 960);
+        ActionTool.clickScreen(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2f));
         Logger.d("大众头条主页操作完毕");
         LocalLogTool.writeTxtToFile("大众头条主界面单次操作完毕");
         recordTime(3000);
@@ -95,9 +107,9 @@ public class DaAction extends BaseAction {
         Thread.sleep(2000);
         int time = 0;
         while (time < 35) {
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f));
             Thread.sleep(1000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f));
             Thread.sleep(4000);
             time += 5;
             LocalLogTool.writeTxtToFile("大众头条新闻单次操作完毕");
@@ -116,6 +128,8 @@ public class DaAction extends BaseAction {
         super.videoAction(service);
         Thread.sleep(30000);
         ActionTool.clickBack(service);
+        Logger.d("大众头条视频单次操作完毕");
+        LocalLogTool.writeTxtToFile("大众头条视频单次操作完毕");
         recordTime(30000);
     }
 

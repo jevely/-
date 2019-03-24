@@ -2,6 +2,9 @@ package com.jeve.gestures.tool;
 
 import android.os.Environment;
 
+import com.jeve.gestures.action.ActionManager;
+import com.jeve.gestures.content.AppContent;
+
 import java.io.File;
 
 public class ActionCheckTool {
@@ -33,6 +36,11 @@ public class ActionCheckTool {
 //                }
 
                 LocalLogTool.setFileName("locallog_" + LocalLogTool.getTime() + ".txt");
+                //打印准备刷的APP名字
+                for (AppContent appContent : ActionManager.getInstance().getAppList()) {
+                    LocalLogTool.writeTxtToFile("勾选APP：" + appContent.getAppName() + "--" + appContent.getChangeTime());
+                }
+                LocalLogTool.writeTxtToFile("****************************************");
             }
         } catch (Exception e) {
             e.printStackTrace();

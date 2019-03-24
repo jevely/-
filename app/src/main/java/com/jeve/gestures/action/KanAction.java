@@ -11,6 +11,8 @@ import com.jeve.gestures.tool.LocalLogTool;
 import com.jeve.gestures.tool.Logger;
 import com.jeve.gestures.tool.Utils;
 
+import java.util.List;
+
 /**
  * 包名:com.xiangzi.jukandian
  * <p>
@@ -37,6 +39,7 @@ public class KanAction extends BaseAction {
     @Override
     public void checkAction(String className, AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         LocalLogTool.writeTxtToFile("进入聚看点 checkAction: " + className);
+        super.checkAction(className, nodeInfo, service);
         switch (className) {
             case "com.xiangzi.jukandian.activity.MainActivity":
                 Logger.d("聚看点主界面操作");
@@ -64,6 +67,11 @@ public class KanAction extends BaseAction {
                 LocalLogTool.writeTxtToFile("聚看点网页广告界面");
                 clickLeftTopToClose(nodeInfo, service);
                 break;
+            case "com.xiangzi.jukandian.widget.dialog.SignDialog2":
+                Logger.d("聚看点签到界面");
+                LocalLogTool.writeTxtToFile("聚看点签到界面");
+                signAction(nodeInfo, service);
+                break;
             default:
                 Logger.d("聚看点其他界面操作");
                 LocalLogTool.writeTxtToFile("聚看点其他界面操作");
@@ -76,6 +84,14 @@ public class KanAction extends BaseAction {
     @Override
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
         super.huiMainAction(nodeInfo, service);
+
+//        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("视频");
+//        if (moreView != null && !moreView.isEmpty()) {
+//            Logger.d(getAppContent().getAppName() + "切换视频");
+//            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "切换视频");
+//            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//            Thread.sleep(1000);
+//        }
         Thread.sleep(2000);
         ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
         Thread.sleep(1000);

@@ -151,31 +151,26 @@ public class ContentManager {
         AppContent shuaContent = new AppContent();
         shuaContent.setPackageName("com.jm.video");
         shuaContent.setOpenSelfPackageName("com.jm.video");
-        shuaContent.setChangePackageName("com.cashtoutiao");
         shuaContent.setChangeTime(changeTime);
         shuaContent.setAppName("刷宝");
         //惠头条
         AppContent huiContent = new AppContent();
         huiContent.setPackageName("com.cashtoutiao,com.bytedance");
         huiContent.setOpenSelfPackageName("com.cashtoutiao");
-        huiContent.setChangePackageName("com.xiangzi.jukandian");
         huiContent.setChangeTime(changeTime);
         huiContent.setAppName("惠头条");
         //聚看点
         AppContent juContent = new AppContent();
         juContent.setPackageName("com.xiangzi.jukandian");
         juContent.setOpenSelfPackageName("com.xiangzi.jukandian");
-//        juContent.setChangePackageName("com.yingliang.clicknews");
-        juContent.setChangePackageName("com.songheng.eastnews");
         juContent.setChangeTime(changeTime);
         juContent.setAppName("聚看点");
-//        //点点新闻
-//        AppContent dianContent = new AppContent();
-//        dianContent.setPackageName("com.yingliang.clicknews");
-//        dianContent.setOpenSelfPackageName("com.yingliang.clicknews");
-//        dianContent.setChangePackageName("com.songheng.eastnews");
-//        dianContent.setChangeTime(changeTime);
-//        dianContent.setAppName("点点新闻");
+        //点点新闻
+        AppContent dianContent = new AppContent();
+        dianContent.setPackageName("com.yingliang.clicknews");
+        dianContent.setOpenSelfPackageName("com.yingliang.clicknews");
+        dianContent.setChangeTime(changeTime);
+        dianContent.setAppName("点点新闻");
         //赚钱阅有钱
 //        AppContent zhuanContent = new AppContent();
 //        zhuanContent.setPackageName("com.yj.yueyouqian");
@@ -186,14 +181,12 @@ public class ContentManager {
         AppContent dongContent = new AppContent();
         dongContent.setPackageName("com.songheng.eastnews");
         dongContent.setOpenSelfPackageName("com.songheng.eastnews");
-        dongContent.setChangePackageName("com.huolea.bull");
         dongContent.setChangeTime(changeTime);
         dongContent.setAppName("东方头条");
         //牛牛头条
         AppContent niuContent = new AppContent();
         niuContent.setPackageName("com.huolea.bull");
         niuContent.setOpenSelfPackageName("com.huolea.bull");
-        niuContent.setChangePackageName("com.xcm.huasheng");
         niuContent.setChangeTime(changeTime);
         niuContent.setAppName("牛牛头条");
         //花生头条
@@ -208,7 +201,7 @@ public class ContentManager {
         daContent.setPackageName("com.build.dazhong");
         daContent.setOpenSelfPackageName("com.build.dazhong");
 //        daContent.setChangePackageName("cn.youth.news");
-        daContent.setChangeTime(0);
+        daContent.setChangeTime(changeTime);
         daContent.setAppName("大众头条");
         //中青看点
 //        AppContent zhongContent = new AppContent();
@@ -221,7 +214,7 @@ public class ContentManager {
         addContent(shuaContent);
         addContent(huiContent);
         addContent(juContent);
-//        addContent(dianContent);
+        addContent(dianContent);
 //        addContent(zhuanContent);
         addContent(dongContent);
         addContent(niuContent);
@@ -232,7 +225,7 @@ public class ContentManager {
         actionMap.put(shuaContent.getPackageName(), new ShuaAction(shuaContent));
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
         actionMap.put(juContent.getPackageName(), new KanAction(juContent));
-//        actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
+        actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
 //        actionMap.put(zhuanContent.getPackageName(), new ZhuanAction(zhuanContent));
         actionMap.put(dongContent.getPackageName(), new DongAction(dongContent));
         actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
