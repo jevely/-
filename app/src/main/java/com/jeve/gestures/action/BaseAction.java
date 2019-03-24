@@ -340,7 +340,7 @@ public abstract class BaseAction {
 //            Thread.sleep(2000);
 //            ActionTool.clickBack(service);
             Utils.startApp(getAppContent().getOpenSelfPackageName());
-            Thread.sleep(2000);
+            Thread.sleep(7000);
         }
 
         if (repeatCount >= 20) {

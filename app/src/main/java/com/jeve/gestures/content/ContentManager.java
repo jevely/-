@@ -204,12 +204,11 @@ public class ContentManager {
         daContent.setChangeTime(changeTime);
         daContent.setAppName("大众头条");
         //中青看点
-//        AppContent zhongContent = new AppContent();
-//        zhongContent.setPackageName("cn.youth.news");
-//        zhongContent.setOpenSelfPackageName("cn.youth.news");
-//        huaContent.setChangePackageName("com.xcm.huasheng");
-//        zhongContent.setChangeTime(changeTime);
-//        zhongContent.setAppName("中青看点");
+        AppContent zhongContent = new AppContent();
+        zhongContent.setPackageName("cn.youth.news");
+        zhongContent.setOpenSelfPackageName("cn.youth.news");
+        zhongContent.setChangeTime(changeTime);
+        zhongContent.setAppName("中青看点");
 
         addContent(shuaContent);
         addContent(huiContent);
@@ -220,7 +219,7 @@ public class ContentManager {
         addContent(niuContent);
         addContent(huaContent);
         addContent(daContent);
-//        addContent(zhongContent);
+        addContent(zhongContent);
 
         actionMap.put(shuaContent.getPackageName(), new ShuaAction(shuaContent));
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
@@ -231,7 +230,7 @@ public class ContentManager {
         actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
         actionMap.put(huaContent.getPackageName(), new HuaAction(huaContent));
         actionMap.put(daContent.getPackageName(), new DaAction(daContent));
-//        actionMap.put(zhongContent.getPackageName(), new ZhongAction(zhongContent));
+        actionMap.put(zhongContent.getPackageName(), new ZhongAction(zhongContent));
     }
 
     public BaseAction getAction(AppContent content) {

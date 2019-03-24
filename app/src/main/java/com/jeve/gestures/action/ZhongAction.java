@@ -104,17 +104,27 @@ public class ZhongAction extends BaseAction {
         super.newsAction(nodeInfo, service);
 
         Thread.sleep(2000);
-        //奖励弹框
-        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("阅读5篇后还有");
-        if (moreView != null && !moreView.isEmpty()) {
-            Logger.d(getAppContent().getAppName() + "首页-阅读5篇后还有-意外界面");
-            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "首页-阅读5篇后还有-意外界面");
-            moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            Thread.sleep(1000);
-        }
 
         int time = 0;
         while (time < 120) {
+
+            //奖励弹框
+            List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("阅读5篇后还有");
+            if (moreView != null && !moreView.isEmpty()) {
+                Logger.d(getAppContent().getAppName() + "首页-阅读5篇后还有-意外界面");
+                LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "首页-阅读5篇后还有-意外界面");
+                moreView.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                Thread.sleep(1000);
+            }
+
+            //奖励弹框
+            List<AccessibilityNodeInfo> moreView2 = nodeInfo.findAccessibilityNodeInfosByText("忽略");
+            if (moreView2 != null && !moreView2.isEmpty()) {
+                Logger.d(getAppContent().getAppName() + "-忽略-意外界面");
+                LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "-忽略-意外界面");
+                moreView2.get(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+
             Thread.sleep(3000);
             ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f));
             Thread.sleep(3000);
