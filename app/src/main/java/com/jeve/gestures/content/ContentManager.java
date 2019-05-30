@@ -172,11 +172,11 @@ public class ContentManager {
         dianContent.setChangeTime(changeTime);
         dianContent.setAppName("点点新闻");
         //赚钱阅有钱
-//        AppContent zhuanContent = new AppContent();
-//        zhuanContent.setPackageName("com.yj.yueyouqian");
-//        zhuanContent.setOpenSelfPackageName("com.yj.yueyouqian");
-//        zhuanContent.setChangeTime(0);
-//        zhuanContent.setAppName("赚钱阅有钱");
+        AppContent zhuanContent = new AppContent();
+        zhuanContent.setPackageName("com.yj.yueyouqian");
+        zhuanContent.setOpenSelfPackageName("com.yj.yueyouqian");
+        zhuanContent.setChangeTime(changeTime);
+        zhuanContent.setAppName("赚钱阅有钱");
         //东方头条
         AppContent dongContent = new AppContent();
         dongContent.setPackageName("com.songheng.eastnews");
@@ -200,7 +200,6 @@ public class ContentManager {
         AppContent daContent = new AppContent();
         daContent.setPackageName("com.build.dazhong");
         daContent.setOpenSelfPackageName("com.build.dazhong");
-//        daContent.setChangePackageName("cn.youth.news");
         daContent.setChangeTime(changeTime);
         daContent.setAppName("大众头条");
         //中青看点
@@ -214,7 +213,7 @@ public class ContentManager {
         addContent(huiContent);
         addContent(juContent);
         addContent(dianContent);
-//        addContent(zhuanContent);
+        addContent(zhuanContent);
         addContent(dongContent);
         addContent(niuContent);
         addContent(huaContent);
@@ -225,7 +224,7 @@ public class ContentManager {
         actionMap.put(huiContent.getPackageName(), new HuiAction(huiContent));
         actionMap.put(juContent.getPackageName(), new KanAction(juContent));
         actionMap.put(dianContent.getPackageName(), new DianAction(dianContent));
-//        actionMap.put(zhuanContent.getPackageName(), new ZhuanAction(zhuanContent));
+        actionMap.put(zhuanContent.getPackageName(), new ZhuanAction(zhuanContent));
         actionMap.put(dongContent.getPackageName(), new DongAction(dongContent));
         actionMap.put(niuContent.getPackageName(), new NiuAction(niuContent));
         actionMap.put(huaContent.getPackageName(), new HuaAction(huaContent));

@@ -1,6 +1,7 @@
 package com.jeve.gestures.action;
 
 import android.accessibilityservice.AccessibilityService;
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -54,6 +55,7 @@ public class ZhuanAction extends BaseAction {
 //                videoAction(service);
 //                break;
             case "com.jifen.qukan.ui.activity.PermissionCheckActivity":
+                Logger.d("赚钱阅有钱冷启动界面操作");
                 LocalLogTool.writeTxtToFile("赚钱阅有钱冷启动界面操作");
                 setActionTime(0);
                 ContentManager.getInstance().changeContent(getAppContent());
@@ -69,14 +71,28 @@ public class ZhuanAction extends BaseAction {
     //主界面  滑动屏幕三分之一，点击
     @Override
     public void huiMainAction(AccessibilityNodeInfo nodeInfo, AccessibilityService service) throws Exception {
-//        //弹框检测
-//        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("立即领取");
-//        Logger.d("moreView = " + moreView.size());
         super.huiMainAction(nodeInfo, service);
         Thread.sleep(2000);
-        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
+
+//        List<AccessibilityNodeInfo> moreView = nodeInfo.findAccessibilityNodeInfosByText("视频");
+//        if (moreView != null && !moreView.isEmpty()) {
+//            Logger.d(getAppContent().getAppName() + "切换视频");
+//            LocalLogTool.writeTxtToFile(getAppContent().getAppName() + "切换视频");
+//            Rect rect = new Rect();
+//            moreView.get(0).getBoundsInScreen(rect);
+//            ActionTool.clickScreen(nodeInfo, service, rect.left, rect.top + 20);
+//            Thread.sleep(1000);
+//        }
+
+        if (getActionTime() % (1000 * 60 * 20) == 0) {
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 1.1f), (int) (getScreenHeight() / 2), (int) (getScreenWidth() / 20f), (int) (getScreenHeight() / 2));
+            Thread.sleep(2000);
+        }
+
+        ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.3f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3f));
         Thread.sleep(1000);
-        ActionTool.clickScreen(nodeInfo, service, 540, 960);
+        ActionTool.clickScreen(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2f));
+        Logger.d("赚钱阅有钱主界面单次操作完毕");
         LocalLogTool.writeTxtToFile("赚钱阅有钱主界面单次操作完毕");
         recordTime(3000);
     }
@@ -89,15 +105,16 @@ public class ZhuanAction extends BaseAction {
         int time = 0;
         while (time < 35) {
             Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f));
             Thread.sleep(1000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f));
             time += 4;
-            LocalLogTool.writeTxtToFile("赚钱阅有钱新闻单次操作完毕");
             if (recordTime(4000)) {
                 return;
             }
         }
+        Logger.d("赚钱阅有钱新闻单次操作完毕");
+        LocalLogTool.writeTxtToFile("赚钱阅有钱新闻单次操作完毕");
         Thread.sleep(2000);
         ActionTool.clickBack(service);
     }

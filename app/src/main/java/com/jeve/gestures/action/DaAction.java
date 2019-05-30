@@ -112,12 +112,12 @@ public class DaAction extends BaseAction {
             ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f));
             Thread.sleep(4000);
             time += 5;
-            LocalLogTool.writeTxtToFile("大众头条新闻单次操作完毕");
             if (recordTime(5000)) {
                 return;
             }
-
         }
+        LocalLogTool.writeTxtToFile("大众头条新闻单次操作完毕");
+        Logger.d("大众头条新闻单次操作完毕");
         Thread.sleep(2000);
         ActionTool.clickBack(service);
     }

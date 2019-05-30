@@ -61,7 +61,7 @@ public class HuaAction extends BaseAction {
             default:
                 Logger.d("花生头条其他界面操作");
                 LocalLogTool.writeTxtToFile("花生头条其他界面操作");
-                otherAction(nodeInfo,service);
+                otherAction(nodeInfo, service);
                 break;
         }
     }
@@ -72,9 +72,9 @@ public class HuaAction extends BaseAction {
 //        super.huiMainAction(nodeInfo, service);
         List<AccessibilityNodeInfo> byText = nodeInfo.findAccessibilityNodeInfosByText("升级领取福利");
         Thread.sleep(2000);
-        ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 640);
+        ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 3));
         Thread.sleep(1000);
-        ActionTool.clickScreen(nodeInfo, service, 540, 960);
+        ActionTool.clickScreen(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2f));
         LocalLogTool.writeTxtToFile("花生头条主界面单次操作完毕");
         recordTime(3000);
     }
@@ -87,15 +87,16 @@ public class HuaAction extends BaseAction {
         int time = 0;
         while (time < 33) {
             Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 1280, 540, 880);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f));
             Thread.sleep(3000);
-            ActionTool.scroll(nodeInfo, service, 540, 880, 540, 1280);
+            ActionTool.scroll(nodeInfo, service, (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 2.18f), (int) (getScreenWidth() / 2), (int) (getScreenHeight() / 1.5f));
             time += 6;
-            LocalLogTool.writeTxtToFile("花生头条新闻单次操作完毕");
             if (recordTime(6000)) {
                 return;
             }
         }
+        LocalLogTool.writeTxtToFile("花生头条新闻单次操作完毕");
+        Logger.d("花生头条新闻单次操作完毕");
         Thread.sleep(2000);
         ActionTool.clickBack(service);
     }
